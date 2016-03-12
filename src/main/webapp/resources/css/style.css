@@ -8,9 +8,7 @@ and open the template in the editor.
     Author     : Arthur
 */
 
-body{
-    
-}
+
 
 .header{
 margin-top:0px;
@@ -35,7 +33,7 @@ height:420px;
 .content_interno{
 background:rgba(248,248,248, 0.2) ;
 width:500px;
-height:350;
+height:350px;
 padding-left:80px;
 padding-right:20px;
 margin-left:auto;

@@ -11,8 +11,9 @@ and open the template in the editor.
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <ui:insert name="title"><title>Curriculo ONLINE</title></ui:insert>
-            <h:outputStylesheet library="css" name="" />
-            <ui:insert name="css"></ui:insert>
+            <ui:insert name="css">
+                <h:outputStylesheet library="css" name="style.css" />
+            </ui:insert>
     </h:head>
     <h:body>
         <div class="header">

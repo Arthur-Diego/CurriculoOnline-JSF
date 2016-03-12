@@ -14,15 +14,19 @@
         <h:form>
             <p:panelGrid columns="1">
                 <p:outputLabel value="Nome:"/>
-                <p:inputText />
+                <p:inputText required="true"/>
                 <p:outputLabel value="Usuário:"/>
-                <p:inputText  />
+                <p:inputText required="true" />
                 <p:outputLabel value="Email:"/>
-                <p:inputText />
+                <p:inputText required="true"/>
                 <p:outputLabel value="Senha:"/>
-                <p:password  />
+                <p:password required="true" feedback="true" 
+promptLabel="Digite a senha" weakLabel="Força da senha : Fraca" 
+goodLabel="Força da senha : Média" strongLabel="Força da senha : Forte"/>
                 <p:outputLabel value="Confirmar Senha:"/>
-                <p:password  />
+                <p:password required="true" feedback="true" 
+promptLabel="Digite a senha" weakLabel="Força da senha : Fraca" 
+goodLabel="Força da senha : Média" strongLabel="Força da senha : Forte"/>
             </p:panelGrid>
         </h:form>
     </ui:define>
