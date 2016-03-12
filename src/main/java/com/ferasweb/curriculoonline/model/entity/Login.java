@@ -29,6 +29,9 @@ public class Login implements EntityInterface<Login>{
     @Column(name = "Login_Cod")
     private Integer loginCod;
     
+    @Column(name = "Login_Nome")
+    private String loginNome;
+    
     @Column(name = "Login_User", nullable = false)
     private String login;
     
@@ -50,6 +53,14 @@ public class Login implements EntityInterface<Login>{
         this.loginCod = loginCod;
     }
 
+    public String getLoginNome() {
+        return loginNome;
+    }
+
+    public void setLoginNome(String loginNome) {
+        this.loginNome = loginNome;
+    }
+    
     public String getLogin() {
         return login;
     }
