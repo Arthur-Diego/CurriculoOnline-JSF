@@ -4,34 +4,43 @@
                 xmlns:p="http://primefaces.org/ui">
     <h:head>
         <ui:define name="title">Bem Vindo</ui:define>
+<script type="text/javascript">
+function slide1(){
+document.getElementById('id').src="1.bmp";
+setTimeout("slide2()", 3000);
+}
+ 
+function slide2(){
+document.getElementById('id').src="2.bmp";
+setTimeout("slide3()", 3000);
+}
+ 
+function slide3(){
+document.getElementById('id').src="3.bmp";
+setTimeout("slide1()", 3000);
+}
+</script>
     </h:head>
 
     <ui:define name="header">
-        <p:link value="Login" />
+        <h:commandButton styleClass="buttonMenu" value="Login" style="float: right; margin-top: 15px; margin-right: 40px;"/>
+        <h:graphicImage library="images" name="curricu.png"/>
     </ui:define>
 
     <ui:define name="content">
-        <h:form>
-            <p:panelGrid columns="1">
-                <p:outputLabel value="Nome:"/>
-                <p:inputText required="true"/>
-                <p:outputLabel value="Usuário:"/>
-                <p:inputText required="true" />
-                <p:outputLabel value="Email:"/>
-                <p:inputText required="true"/>
-                <p:outputLabel value="Senha:"/>
-                <p:password required="true" feedback="true" 
-promptLabel="Digite a senha" weakLabel="Força da senha : Fraca" 
-goodLabel="Força da senha : Média" strongLabel="Força da senha : Forte"/>
-                <p:outputLabel value="Confirmar Senha:"/>
-                <p:password required="true" feedback="true" 
-promptLabel="Digite a senha" weakLabel="Força da senha : Fraca" 
-goodLabel="Força da senha : Média" strongLabel="Força da senha : Forte"/>
-            </p:panelGrid>
-        </h:form>
+        <h:panelGroup>
+            <ui:include src="/WEB-INF/login/Registrar.xhtml"  />
+        </h:panelGroup>
+        <h:panelGroup>
+        </h:panelGroup>
     </ui:define>
 
     <ui:define name="footer">
-        
+        <div class="footer-texto">
+            <p>
+                Copyright 2016 - Todos os direitos reservados.
+                Nenhum conteúdo deste site pode ser reproduzido sem autorização
+            </p>
+        </div>
     </ui:define>
 </ui:composition>

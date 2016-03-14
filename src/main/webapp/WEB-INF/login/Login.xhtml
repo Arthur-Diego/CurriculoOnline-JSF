@@ -1,0 +1,17 @@
+<ui:composition 
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <h:form>
+        <p:panelGrid columns="1" styleClass="semBorda transparentBackground">
+            <p:outputLabel value="Usuário:"/>
+            <p:inputText required="true" size="35" />
+            <p:outputLabel value="Senha:"/>
+            <p:password required="true"
+                        size="35"/>
+            <h:commandButton value="Login" styleClass="buttonJsf"/>
+        </p:panelGrid>
+    </h:form>
+
+</ui:composition>

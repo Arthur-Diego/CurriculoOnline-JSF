@@ -8,43 +8,165 @@ and open the template in the editor.
     Author     : Arthur
 */
 
-
+#slides{
+    width: 615px;
+    height: 317px;
+    margin:0 auto;
+    overflow: hidden;
+}
 
 .header{
-margin-top:0px;
-background: url("../WEB-INF/images/header.jpg");
-width:100%;
-height:120px;
+    margin-top:0px;
+    background: url("../resources/images/back_menu.jpg") repeat-x;
+    width:100%;
+    height:68px;
+
+}
+.content{
+    position: relative;
+    clear: both;
+    float:left;
+    overflow: hidden;
+    width:100%;
+    height:100%;
+
 
 }
 
-.content{
-position: relative;
-clear: both;
-margin-top:5px;
-float:left;
-overflow: hidden;
-width:100%;
-height:420px;
+.imgFundo{
+    position:absolute;
+    width:100%; 
+    height:100%;
+    opacity:0.35;
+    -moz-opacity: 0.35;
+    filter: alpha(opacity=35);
 
+}
 
+.banner{
+    width: 700px;
+    height: 450px;
+    float: left;
+    position: absolute;
+    margin-left: 50px; 
 }
 
 .content_interno{
-background:rgba(248,248,248, 0.2) ;
-width:500px;
-height:350px;
-padding-left:80px;
-padding-right:20px;
-margin-left:auto;
-margin-top:15px;
+    position:relative; 
+    width:400px;
+    height:450px;
+    padding-left:80px;
+    padding-right:20px;
+    margin-left:auto;
+    margin-top:15px;
+    
 }
 
 .footer{
-float:left;
-background:rgb(0, 0, 255);
-width:100%;
-height:100px;
+    float:left;
+    background:#282828;
+    width:100%;
+    height:70px;
 
 
+}
+
+.footer-texto {
+    width:600px;
+    height:50px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.footer-texto p{
+    padding-left:140px;
+    font-family:Cabin Condensed;
+    font-size:14px;
+    color:#FFF;
+    text-align:center;
+    margin-top:20px;
+    margin-bottom: 30px;
+}
+
+
+/*JSF buuton*/
+.buttonJsf{
+    float:right;
+    position: relative;
+    background-color: #4CAF50;
+    border: none;
+    font-size: 28px;
+    color: #FFFFFF;
+    padding: 5px;
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.buttonJsf:after {
+    content: "";
+    background: #90EE90;
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px !important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+}
+
+.buttonJsf:active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s
+}
+
+.buttonJsf:hover{
+    padding: 10px;
+}
+/* Menu Jsf */
+.buttonMenu{
+    cursor: pointer;
+    text-decoration: none;
+    float:left;
+    color: #333;
+    display: block;
+    width:auto;
+    height:41px;
+    line-height:41px;
+    text-align: center;
+    text-decoration:none;
+    padding-right:6px;	
+    padding-left:6px;
+    margin-top:18px;
+    z-index:4;
+    -moz-border-radius: 8px; /* Para Firefox */
+    -webkit-border-radius: 8px; /*Para Safari e Chrome */
+    border-radius: 8px; /* Para Opera 10.5+*/	
+}
+
+.buttonMenu:hover{
+    background:#333;
+    color:#FFF;
+    -moz-border-radius: 8px; /* Para Firefox */
+    -webkit-border-radius: 8px; /*Para Safari e Chrome */
+    border-radius: 8px; /* Para Opera 10.5+*/
+    z-index:4;		
+}
+
+/*Primefaces */
+.semBorda tr, .semBorda td{
+    border: none !important;
+}
+
+.transparentBackground tr, .transparentBackground td { 
+    background: transparent !important; 
 }
