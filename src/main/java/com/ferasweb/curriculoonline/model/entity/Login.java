@@ -8,10 +8,16 @@ package com.ferasweb.curriculoonline.model.entity;
 import com.ferasweb.curriculoonline.model.commons.EntityInterface;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,28 +28,41 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "Login")
-public class Login implements EntityInterface<Login>{
-    
+public class Login implements EntityInterface<Login> {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Login_Cod")
     private Integer loginCod;
-    
+
     @Column(name = "Login_Nome")
     private String loginNome;
-    
+
     @Column(name = "Login_User", nullable = false)
     private String login;
-    
+
     @Column(name = "Login_Senha", nullable = false)
     private String senha;
-    
+
     @Temporal(TemporalType.DATE)
     @Column(name = "Login_Data_Reg")
     private Date dataRegistro;
-    
+
     @Column(name = "Login_Email", length = 100, nullable = false)
     private String email;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "Login_Grupos", joinColumns = @JoinColumn(name = "Login_Cod"),
+            inverseJoinColumns = @JoinColumn(name = "Grupo_Cod"))
+    public List<Grupo> grupos;
+
+    public List<Grupo> getGrupos() {
+        return grupos;
+    }
+
+    public void setGrupos(List<Grupo> grupos) {
+        this.grupos = grupos;
+    }
 
     public Integer getLoginCod() {
         return loginCod;
@@ -60,7 +79,7 @@ public class Login implements EntityInterface<Login>{
     public void setLoginNome(String loginNome) {
         this.loginNome = loginNome;
     }
-    
+
     public String getLogin() {
         return login;
     }
@@ -130,7 +149,7 @@ public class Login implements EntityInterface<Login>{
         }
         return true;
     }
-    
+
     @Override
     public Serializable getId() {
         return this.getLoginCod();
@@ -155,5 +174,5 @@ public class Login implements EntityInterface<Login>{
     public int compareTo(Login o) {
         return this.getLoginCod().compareTo(o.getLoginCod());
     }
-    
+
 }

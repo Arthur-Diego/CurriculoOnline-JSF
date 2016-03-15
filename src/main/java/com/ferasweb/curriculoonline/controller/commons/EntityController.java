@@ -119,10 +119,9 @@ public abstract class EntityController <T extends EntityInterface> {
      *
      * @return java.lang.String Normalmente retorna contante MANTEM.
      */
-    public String prepareCreate() {
+    public void prepareCreate() {
         setEntity(getNewEntity());
         this.newEntity = true;
-        return JsfUtil.MANTEM;
     }
 
     /**

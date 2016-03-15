@@ -1,46 +1,83 @@
-<ui:composition template="/WEB-INF/template/template.xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <ui:define name="title">Bem Vindo</ui:define>
-<script type="text/javascript">
-function slide1(){
-document.getElementById('id').src="1.bmp";
-setTimeout("slide2()", 3000);
-}
- 
-function slide2(){
-document.getElementById('id').src="2.bmp";
-setTimeout("slide3()", 3000);
-}
- 
-function slide3(){
-document.getElementById('id').src="3.bmp";
-setTimeout("slide1()", 3000);
-}
-</script>
-    </h:head>
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      >
+    <ui:composition template="template.xhtml">
+        <h:head>
+            <ui:define name="title">Bem Vindo</ui:define>
+        </h:head>
+        <ui:define name="header">
+            <h:commandButton styleClass="buttonMenu"  value="Login" style="float: right; margin-top: 15px; margin-right: 40px;"/>
+            <h:panelGrid columns="4" styleClass="buttonMenu">
+                <h:outputLabel value="Usuário:"/>
+                <h:inputText required="true" style="width: 150px;" styleClass="inputText" size="35" value="#{loginController.current.login}"/>
+                <h:outputLabel value="Senha:"/>
+                <h:inputSecret required="true" style="width: 150px;" styleClass="inputText"
+                               value="#{loginController.current.senha}"/>
 
-    <ui:define name="header">
-        <h:commandButton styleClass="buttonMenu" value="Login" style="float: right; margin-top: 15px; margin-right: 40px;"/>
-        <h:graphicImage library="images" name="curricu.png"/>
-    </ui:define>
+            </h:panelGrid>
+            <h:graphicImage library="images" name="curricu.png"/>
+        </ui:define>
 
-    <ui:define name="content">
-        <h:panelGroup>
-            <ui:include src="/WEB-INF/login/Registrar.xhtml"  />
-        </h:panelGroup>
-        <h:panelGroup>
-        </h:panelGroup>
-    </ui:define>
+        <ui:define name="content">
+            <h:graphicImage library="images" name="background.jpg" styleClass="imgFundo"/>
+            <script type="text/javascript">
+                $(function() {
+                    $("#slides ul").cycle({
+                        fx: 'fade',
+                        speed: 2000,
+                        timeout: 3000
+                    });
+                });
+            </script>
+            <div class="banner">
+                <div id="slides">
+                    <ul>
+                        <li><h:graphicImage library="images" name="teste1.jpg"/></li>
+                        <li><h:graphicImage library="images" name="teste2.png"/></li>
+                        <li><h:graphicImage library="images" name="teste3.jpg"/></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content_interno">
+                <h:form id="frmRegistroLogin">
+                    <h:panelGrid columns="1" styleClass="semBorda transparentBackground">
+                        <h:outputLabel value="Nome:"/>
+                        <h:inputText required="true" styleClass="inputText" size="35" value="#{loginController.current.loginNome}"/>
+                        <h:outputLabel value="Usuário:"/>
+                        <h:inputText required="true" styleClass="inputText" size="35" value="#{loginController.current.login}"/>
+                        <h:outputLabel value="Email:"/>
+                        <h:inputText required="true" styleClass="inputText" size="35" value="#{loginController.current.email}"/>
+                        <h:outputLabel value="Senha:"/>
+                        <h:inputSecret required="true" styleClass="inputText"
+                                       value="#{loginController.current.senha}"/>
+                        <h:outputLabel value="Confirmar Senha:"/>
+                        <h:inputSecret required="true" styleClass="inputText"
+                                       >
+                            <f:ajax listener="#{loginController.prepareCreate()}" event="keypress"/>
+                        </h:inputSecret>
+                        <h:commandButton value="Registrar" styleClass="buttonJsf" action="#{loginController.createOrEdit()}"/>
+                    </h:panelGrid>
+                </h:form>
+            </div>
+        </ui:define>
 
-    <ui:define name="footer">
-        <div class="footer-texto">
-            <p>
-                Copyright 2016 - Todos os direitos reservados.
-                Nenhum conteúdo deste site pode ser reproduzido sem autorização
-            </p>
-        </div>
-    </ui:define>
-</ui:composition>
+        <ui:define name="footer">
+            <div class="footer-texto">
+                <p>
+                    Copyright 2016 - Todos os direitos reservados.
+                    Nenhum conteúdo deste site pode ser reproduzido sem autorização
+                </p>
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>
