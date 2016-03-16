@@ -6,27 +6,23 @@
            http://www.springframework.org/schema/security
            http://www.springframework.org/schema/security/spring-security-3.1.xsd">
     
+    
+    <beans:bean id="appUserDetailsService" class="com.ferasweb.curriculoonline.security.AppUserDetailsService" />
 	
     <http pattern="/home.xhtml" security="none" />
-    <http pattern="/javax.faces.resource/**" security="none" />
-    
-   
     
     <http auto-config="true" >
-        <intercept-url pattern="/**" access="ROLE_USER"/>
+        <intercept-url pattern="/**" access="ROLE_ADMIN"/>
         <form-login 
             login-page="/home.xhtml"
-            default-target-url="/"
+            default-target-url="/inicio.xhtml"
             authentication-failure-url="/home.xhtml"
-            always-use-default-target="true"
         />
     </http>
 	
     <authentication-manager>
-        <authentication-provider>
-            <user-service>
-                <user name="arthur" password="1234" authorities="ROLE_USER"/>
-            </user-service>
+        <authentication-provider user-service-ref="appUserDetailsService">
+            
         </authentication-provider>
     </authentication-manager>
            

@@ -9,7 +9,9 @@ import com.ferasweb.curriculoonline.model.dao.commons.AbstractEntityBeans;
 import com.ferasweb.curriculoonline.model.entity.Login;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -32,13 +34,20 @@ public class LoginDAO extends AbstractEntityBeans<Login, Integer> {
         return manager;
     }
 
-    public Login findUserByEmail(String email) {
+    public Login findUserByLogin(String login) {
         Login usuario = null;
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("curriculoPU");
+        EntityManager manager = emf.createEntityManager();
         try {
-            usuario = manager.createQuery("SELECT user FROM Login user WHERE LOWER(email) = :email", Login.class)
-                    .setParameter("email", email.toLowerCase()).getSingleResult();
+
+            usuario = manager.createQuery("SELECT l FROM Login l WHERE l.login = :login", Login.class)
+                    .setParameter("login", login.toLowerCase()).getSingleResult();
         } catch (NoResultException e) {
             //implementar erro 
+        } finally {
+            manager.close();
+            emf.close();
         }
         return usuario;
     }

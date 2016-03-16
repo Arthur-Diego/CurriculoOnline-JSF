@@ -13,6 +13,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import org.hibernate.event.spi.PersistEvent;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,20 +30,21 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * @author Andressa
  */
 public class AppUserDetailsService implements UserDetailsService{
-
-    @EJB
-    private LoginDAO loginDao;
+    
+    public LoginDAO returnDAO(){
+       return new LoginDAO();
+    }
     
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        
-        Login usuario = loginDao.findUserByEmail(email);
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        returnDAO();
+        Login usuario = returnDAO().findUserByLogin(login);
         UsuarioSistema user = null;
         
         if(usuario != null){
-            new UsuarioSistema(usuario, getGrupos(usuario));
+          user = new UsuarioSistema(usuario, getGrupos(usuario));
         }        
-        return null;
+        return user;
     }
 
     private Collection<? extends GrantedAuthority> getGrupos(Login usuario) {

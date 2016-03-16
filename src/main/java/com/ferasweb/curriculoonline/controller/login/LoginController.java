@@ -37,13 +37,10 @@ public class LoginController extends EntityController<Login> implements Serializ
     @EJB
     private LoginDAO loginDao;
 
-    @EJB
     private FacesContext facesContext;
 
-    @EJB
     private HttpServletRequest request;
 
-    @EJB
     private HttpServletResponse response;
 
     private Login current;
