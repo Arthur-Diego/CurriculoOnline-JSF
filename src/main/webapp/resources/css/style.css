@@ -45,11 +45,13 @@ and open the template in the editor.
 }
 
 .banner{
+    
     width: 700px;
     height: 450px;
     float: left;
     position: absolute;
-    margin-left: 50px; 
+    margin-left: 17%; 
+    margin-top: 40px;
 }
 
 .content_interno{
@@ -58,7 +60,7 @@ and open the template in the editor.
     width:360px;
     height:450px;
     padding-left:40px;
-    padding-right:1px;
+    padding-right:50px;
     margin-top:65px;
     
 }
@@ -135,7 +137,8 @@ and open the template in the editor.
 }
 
 /* Menu Jsf */
-.buttonMenu{
+.formLoginHeader{
+    
     cursor: pointer;
     text-decoration: none;
     float:right;
@@ -155,7 +158,27 @@ and open the template in the editor.
     border-radius: 8px; /* Para Opera 10.5+*/	
 }
 
-.buttonMenu:hover{
+.buttonFormLoginHeader{
+     cursor: pointer;
+    text-decoration: none;
+    float:right;
+    color: #333;
+    display: block;
+    width:auto;
+    height:41px;
+    line-height:41px;
+    text-align: center;
+    text-decoration:none;
+    padding-right:6px;	
+    padding-left:6px;
+    margin-top:10px;
+    z-index:4;
+    -moz-border-radius: 8px; /* Para Firefox */
+    -webkit-border-radius: 8px; /*Para Safari e Chrome */
+    border-radius: 8px; /* Para Opera 10.5+*/
+}
+
+.buttonFormLoginHeader:hover{
     background:#333;
     color:#FFF;
     padding: 5px;

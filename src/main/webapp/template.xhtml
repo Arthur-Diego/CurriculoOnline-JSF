@@ -8,20 +8,12 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <ui:insert name="title"><title>Curriculo ONLINE</title></ui:insert>
         <ui:insert name="css">
             <h:outputStylesheet library="css" name="style.css" />
-        </ui:insert>
-        <ui:insert name="j_script">
-            <h:outputScript library="js" name="jquery-1.8.3.min.js" target="head" />
-            <script type="text/javascript" src="resources/js/jquery.cycle.all.js"></script>
-            <script type="text/javascript" >
-                $ = jQuery;
-                $(document).ready(function() {
-                });
-            </script>
         </ui:insert>
     </h:head>
     <h:body>
@@ -33,12 +25,10 @@ and open the template in the editor.
             </ui:insert>
         </div>
 
-        <div class="content">
-            <ui:insert name="content">
+        <ui:insert name="content">
 
 
-            </ui:insert>
-        </div>
+        </ui:insert>
 
         <div class="footer">
             <ui:insert name="footer">

@@ -8,15 +8,16 @@
     
     
     <beans:bean id="appUserDetailsService" class="com.ferasweb.curriculoonline.security.AppUserDetailsService" />
-	
-    <http pattern="/home.xhtml" security="none" />
+    <http pattern="/javax.faces.resource/**" security="none" />
+    <http pattern="/resources/**" security="none"/>
+    <http pattern="/Login.xhtml" security="none" />
     
     <http auto-config="true" >
         <intercept-url pattern="/**" access="ROLE_ADMIN"/>
         <form-login 
-            login-page="/home.xhtml"
+            login-page="/Login.xhtml"
             default-target-url="/inicio.xhtml"
-            authentication-failure-url="/home.xhtml"
+            authentication-failure-url="/Login.xhtml"
         />
     </http>
 	
