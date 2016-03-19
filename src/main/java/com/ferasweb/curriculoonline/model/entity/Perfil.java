@@ -9,11 +9,13 @@ import com.ferasweb.curriculoonline.model.commons.EntityInterface;
 import com.ferasweb.curriculoonline.model.enumerated.EnumEstadoCivil;
 import java.io.Serializable;
 import java.util.Arrays;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,6 +37,9 @@ public class Perfil implements EntityInterface<Perfil>{
     @Column(name = "Perfil_Cod")
     private Integer perfilCod;
     
+    @OneToOne(mappedBy = "perfil", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    private Conhecimento conhecimento;
+    
     @Column(name = "Perfil_Nome", nullable = false, length = 90)
     private String nome;
 
@@ -55,12 +60,42 @@ public class Perfil implements EntityInterface<Perfil>{
     @Column(name = "Perfil_Email")
     private String email;
     
+    @Column(name = "Perfil_CNH")
+    private String CNH;
+    
+    @Column(name = "Perfil_Tipo_Habilit")
+    private String tipoHabilitacao;
+    
     @Embedded
     private Endereco endereco;
     
     @OneToOne
     @JoinColumn(name = "Login_Cod", nullable = false)
     private Login login;
+
+    public Conhecimento getConhecimento() {
+        return conhecimento;
+    }
+
+    public void setConhecimento(Conhecimento conhecimento) {
+        this.conhecimento = conhecimento;
+    }
+
+    public String getCNH() {
+        return CNH;
+    }
+
+    public void setCNH(String CNH) {
+        this.CNH = CNH;
+    }
+
+    public String getTipoHabilitacao() {
+        return tipoHabilitacao;
+    }
+
+    public void setTipoHabilitacao(String tipoHabilitacao) {
+        this.tipoHabilitacao = tipoHabilitacao;
+    }
 
     public Integer getPerfilCod() {
         return perfilCod;

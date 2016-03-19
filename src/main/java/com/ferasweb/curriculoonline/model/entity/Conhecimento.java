@@ -8,13 +8,16 @@ package com.ferasweb.curriculoonline.model.entity;
 import com.ferasweb.curriculoonline.model.commons.EntityInterface;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -30,25 +33,38 @@ public class Conhecimento implements EntityInterface<Conhecimento>{
     @Column(name = "Conhecimento_Cod")
     private Integer conhecimentoCod;
     
-    @Column(name = "Conhecimento_Objetivo")
+    @Lob
+    @Column(name = "Conhecimento_Objetivo", length = 5000)
     private String objetivo;
     
-    @OneToMany(targetEntity = Formacao.class)
+    @OneToMany(targetEntity = Formacao.class, cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     @JoinColumn(name = "Conhecimento_Cod", nullable = false)
     private List<Formacao> formacao;
     
-    @OneToMany(targetEntity = Experiencia.class)
+    @OneToOne(targetEntity = Perfil.class, cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @JoinColumn(name = "Perfil_Cod")
+    private Perfil perfil;
+    
+    @OneToMany(targetEntity = Experiencia.class, cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     @JoinColumn(name = "Conhecimento_Cod", nullable = false)
     private List<Experiencia> experiencia;
     
-    @OneToMany(targetEntity = Qualificacao.class)
+    @OneToMany(targetEntity = Qualificacao.class, cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     @JoinColumn(name = "Conhecimento_Cod", nullable = false)
     private List<Qualificacao> qualificacao;
     
-    @OneToMany(targetEntity = InformacaoAdicional.class)
+    @OneToMany(targetEntity = InformacaoAdicional.class, cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     @JoinColumn(name = "Conhecimento_Cod", nullable = false)
     private List<InformacaoAdicional> informacao;
 
+    public Perfil getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
+    }
+    
     public Integer getConhecimentoCod() {
         return conhecimentoCod;
     }
