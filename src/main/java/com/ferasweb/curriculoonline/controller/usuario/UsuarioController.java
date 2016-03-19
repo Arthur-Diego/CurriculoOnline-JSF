@@ -10,38 +10,36 @@ import com.ferasweb.curriculoonline.controller.commons.EntityPagination;
 import com.ferasweb.curriculoonline.controller.messages.MessagesView;
 import com.ferasweb.curriculoonline.exception.EntityException;
 import com.ferasweb.curriculoonline.model.dao.LoginDAO;
+import com.ferasweb.curriculoonline.model.entity.Grupo;
 import com.ferasweb.curriculoonline.model.entity.Login;
 import com.ferasweb.curriculoonline.utils.JsfUtil;
-import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author Andressa
  */
-@ManagedBean
+@Named
 @ViewScoped
 public class UsuarioController extends EntityController<Login> implements Serializable {
 
-    @EJB
+    @Inject
     private LoginDAO loginDao;
-    
-    @EJB
+
+    @Inject
     private MessagesView msg;
 
     private Login current;
+
+    private Grupo grupo;
 
     public UsuarioController() {
 
@@ -57,6 +55,22 @@ public class UsuarioController extends EntityController<Login> implements Serial
 
     public void setCurrent(Login current) {
         this.current = current;
+    }
+
+    public Grupo getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
+    }
+
+    public void setGrupoIntoUsuario(Login usuario) {
+        this.grupo = new Grupo("ROLE_USER", "ROLE_USER");
+        List<Grupo> grupos = new ArrayList();
+        grupos.add(grupo);
+        usuario.setGrupos(grupos);
+        usuario.setDataRegistro(new Date());
     }
 
     @Override
@@ -77,6 +91,7 @@ public class UsuarioController extends EntityController<Login> implements Serial
     @Override
     protected String create() {
         try {
+            this.setGrupoIntoUsuario(current);
             loginDao.create(current);
             msg.info("Cadastro Efetuado com sucesso");
         } catch (EntityException ex) {

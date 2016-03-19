@@ -8,6 +8,7 @@ package com.ferasweb.curriculoonline.model.dao;
 import com.ferasweb.curriculoonline.model.dao.commons.AbstractEntityBeans;
 import com.ferasweb.curriculoonline.model.entity.Login;
 import javax.ejb.Stateless;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -19,7 +20,7 @@ import javax.persistence.Query;
  *
  * @author Andressa
  */
-@Stateless
+@Named
 public class LoginDAO extends AbstractEntityBeans<Login, Integer> {
 
     @PersistenceContext(unitName = "curriculoPU")

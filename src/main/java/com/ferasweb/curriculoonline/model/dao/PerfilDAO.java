@@ -9,6 +9,7 @@ package com.ferasweb.curriculoonline.model.dao;
 import com.ferasweb.curriculoonline.model.dao.commons.AbstractEntityBeans;
 import com.ferasweb.curriculoonline.model.entity.Perfil;
 import javax.ejb.Stateless;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -16,7 +17,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author Andressa
  */
-@Stateless
+@Named
 public class PerfilDAO extends AbstractEntityBeans<Perfil, Integer> {
     
     @PersistenceContext(unitName = "curriculoPU")

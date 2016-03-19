@@ -13,11 +13,11 @@
     <http pattern="/Login.xhtml" security="none" />
     
     <http auto-config="true" >
-        <intercept-url pattern="/**" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/**" access="ROLE_USER"/>
         <form-login 
             login-page="/Login.xhtml"
             default-target-url="/inicio.xhtml"
-            authentication-failure-url="/Login.xhtml"
+            authentication-failure-url="/Login.xhtml?invalid=true"
         />
     </http>
 	

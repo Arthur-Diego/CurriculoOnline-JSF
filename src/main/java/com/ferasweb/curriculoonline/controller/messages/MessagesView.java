@@ -6,19 +6,20 @@
 
 package com.ferasweb.curriculoonline.controller.messages;
 
+import java.io.Serializable;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 
 /**
  *
  * @author Andressa
 */
-@Stateless
-@LocalBean
-public class MessagesView {
+@Named
+public class MessagesView implements Serializable{
      
     public void info(String msg) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", msg));

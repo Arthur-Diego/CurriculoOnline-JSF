@@ -5,13 +5,14 @@
  */
 package com.ferasweb.curriculoonline.exception;
 
-import javax.ejb.ApplicationException;
+import javax.transaction.TransactionScoped;
+import javax.transaction.Transactional;
+
 
 /**
  *
  * @author Aluno
  */
-@ApplicationException(rollback = true)
 public class BusinessException extends Exception {
 
     /**

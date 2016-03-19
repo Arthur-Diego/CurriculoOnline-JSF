@@ -54,7 +54,7 @@ public class Login implements EntityInterface<Login> {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "Login_Grupos", joinColumns = @JoinColumn(name = "Login_Cod"),
             inverseJoinColumns = @JoinColumn(name = "Grupo_Cod"))
-    public List<Grupo> grupos;
+    private List<Grupo> grupos;
 
     public List<Grupo> getGrupos() {
         return grupos;

@@ -34,6 +34,14 @@ public class Grupo implements EntityInterface<Grupo>{
     @Column(name = "nome")
     private String nome;
 
+    public Grupo() {
+    }
+
+    public Grupo(String descricao, String nome) {
+        this.descricao = descricao;
+        this.nome = nome;
+    }
+    
     public Integer getGrupoCod() {
         return grupoCod;
     }

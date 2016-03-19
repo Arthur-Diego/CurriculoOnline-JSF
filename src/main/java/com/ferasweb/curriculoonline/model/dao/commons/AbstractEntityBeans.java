@@ -5,6 +5,7 @@
  */
 package com.ferasweb.curriculoonline.model.dao.commons;
 
+import com.ferasweb.curriculoonline.exception.BusinessException;
 import com.ferasweb.curriculoonline.exception.EntityException;
 import com.ferasweb.curriculoonline.model.commons.EntityInterface;
 import java.io.Serializable;
@@ -13,12 +14,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -27,6 +27,8 @@ import javax.validation.ValidatorFactory;
 /**
  *
  * @author Aluno
+ * @param <T>
+ * @param <ID>
  */
 public abstract class AbstractEntityBeans<T extends EntityInterface, ID extends Serializable> {
 
@@ -76,7 +78,7 @@ public abstract class AbstractEntityBeans<T extends EntityInterface, ID extends 
         }
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @Transactional(value = Transactional.TxType.REQUIRED, rollbackOn = {BusinessException.class, EntityException.class})
     public void create(final T entity) throws EntityException {
         if (entity.verificarId()) {
             if (entity.getId() == null) {
@@ -100,7 +102,7 @@ public abstract class AbstractEntityBeans<T extends EntityInterface, ID extends 
         }
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @Transactional(value = Transactional.TxType.REQUIRED, rollbackOn = {BusinessException.class, EntityException.class})
     public void update(final T entity) throws EntityException {
         try {
             validarEntity(entity);
@@ -114,7 +116,7 @@ public abstract class AbstractEntityBeans<T extends EntityInterface, ID extends 
         }
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+   @Transactional(value = Transactional.TxType.REQUIRED, rollbackOn = {BusinessException.class, EntityException.class})
     public void remove(final T entity) throws EntityException {
         try {
             getEntityManager().remove(getEntityManager().merge(entity));
@@ -128,7 +130,7 @@ public abstract class AbstractEntityBeans<T extends EntityInterface, ID extends 
         }
     }
 
-    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+    @Transactional(value = Transactional.TxType.SUPPORTS)
     public T find(final ID id) {
         try {
             return getEntityManager().find(entityClass, id);
@@ -138,7 +140,7 @@ public abstract class AbstractEntityBeans<T extends EntityInterface, ID extends 
         }
     }
 
-    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+   @Transactional(value = Transactional.TxType.SUPPORTS)
     public List<T> findAll() {
         javax.persistence.criteria.CriteriaQuery cq
                 = getEntityManager().getCriteriaBuilder().createQuery();
@@ -146,7 +148,7 @@ public abstract class AbstractEntityBeans<T extends EntityInterface, ID extends 
         return getEntityManager().createQuery(cq).getResultList();
     }
 
-    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+    @Transactional(value = Transactional.TxType.SUPPORTS)
     public List<T> findRange(final int[] range) {
         logger.info("PAGINAÇÃO :: FirstResult: "
                 + range[0] + " MaxResults: " + (range[1] - range[0]));
@@ -159,7 +161,7 @@ public abstract class AbstractEntityBeans<T extends EntityInterface, ID extends 
         return q.getResultList();
     }
 
-    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+   @Transactional(value = Transactional.TxType.SUPPORTS)
     public int count() {
         javax.persistence.criteria.CriteriaQuery cq
                 = getEntityManager().getCriteriaBuilder().createQuery();
@@ -169,14 +171,14 @@ public abstract class AbstractEntityBeans<T extends EntityInterface, ID extends 
         return ((Long) q.getSingleResult()).intValue();
     }
 
-    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+    @Transactional(value = Transactional.TxType.SUPPORTS)
     public List<T> listPesq(final String namedQuery) {
         Query q = getEntityManager().createNamedQuery(namedQuery);
         List<T> list = q.getResultList();
         return list;
     }
 
-    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+    @Transactional(value = Transactional.TxType.SUPPORTS)
     public List<T> listPesqParam(final String namedQuery,
             final Map<String, Object> params) {
         Query q = getEntityManager().createNamedQuery(namedQuery);
@@ -188,7 +190,7 @@ public abstract class AbstractEntityBeans<T extends EntityInterface, ID extends 
         return list;
     }
 
-    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+    @Transactional(value = Transactional.TxType.SUPPORTS)
     public List<T> listPesqParamRange(final String namedQuery,
             final Map<String, Object> params, final int max,
             final int atual) {
@@ -215,7 +217,7 @@ public abstract class AbstractEntityBeans<T extends EntityInterface, ID extends 
         q.executeUpdate();
     }
 
-    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+    @Transactional(value = Transactional.TxType.SUPPORTS)
     public List<T> listPesqParam(final String namedQuery,
             final Map<String, Object> params, final int max,
             final int atual) {
@@ -229,7 +231,7 @@ public abstract class AbstractEntityBeans<T extends EntityInterface, ID extends 
         return list;
     }
 
-    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+    @Transactional(value = Transactional.TxType.SUPPORTS)
     public T pesqParam(final String namedQuery,
             final Map<String, Object> params) {
         Query q = getEntityManager().createNamedQuery(namedQuery);
@@ -246,7 +248,7 @@ public abstract class AbstractEntityBeans<T extends EntityInterface, ID extends 
         }
     }
 
-    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+    @Transactional(value = Transactional.TxType.SUPPORTS)
     public T pesqParam(final String namedQuery) {
         Query q = getEntityManager().createNamedQuery(namedQuery);
         try {
@@ -258,7 +260,7 @@ public abstract class AbstractEntityBeans<T extends EntityInterface, ID extends 
         }
     }
 
-    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+    @Transactional(value = Transactional.TxType.SUPPORTS)
     public Long pesqCount(final String namedQuery, final Map<String, Object> params) {
         Query q = getEntityManager().createNamedQuery(namedQuery);
         if (params != null) {
