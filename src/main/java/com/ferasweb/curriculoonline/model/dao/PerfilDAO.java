@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.ferasweb.curriculoonline.model.dao;
 
 import com.ferasweb.curriculoonline.model.dao.commons.AbstractEntityBeans;
@@ -17,23 +16,18 @@ import javax.persistence.PersistenceContext;
  *
  * @author Andressa
  */
-@Named
 public class PerfilDAO extends AbstractEntityBeans<Perfil, Integer> {
-    
+
     @PersistenceContext(unitName = "curriculoPU")
     private EntityManager manager;
 
     public PerfilDAO() {
         super(Perfil.class, PerfilDAO.class);
     }
-    
-    
-    
+
     @Override
     protected EntityManager getEntityManager() {
         return manager;
     }
-    
-    
-    
+
 }

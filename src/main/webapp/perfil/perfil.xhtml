@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <ui:composition template="/WEB-INF/template/templateMain.xhtml">
+        <ui:define name="cep">
+            <script type="text/javascript" >
+
+                function limpa_formulário_cep() {
+                    //Limpa valores do formulário de cep.
+                    document.getElementById('frmPerfil:' + 'rua').value = ("");
+                    document.getElementById('frmPerfil:' + 'bairro').value = ("");
+                    document.getElementById('frmPerfil:' + 'cidade').value = ("");
+                    document.getElementById('frmPerfil:' + 'uf').value = ("");
+                }
+
+                function meu_callback(conteudo) {
+                    if (!("erro" in conteudo)) {
+                        //Atualiza os campos com os valores.
+                        document.getElementById('frmPerfil:' + 'rua').value = (conteudo.logradouro);
+                        document.getElementById('frmPerfil:' + 'bairro').value = (conteudo.bairro);
+                        document.getElementById('frmPerfil:' + 'cidade').value = (conteudo.localidade);
+                        document.getElementById('frmPerfil:' + 'uf').value = (conteudo.uf);
+                    } //end if.
+                    else {
+                        //CEP não Encontrado.
+                        limpa_formulário_cep();
+                        alert("CEP não encontrado.");
+                    }
+                }
+
+                function pesquisacep(valor) {
+
+                    //Nova variável "cep" somente com dígitos.
+                    var cep = valor.replace(/\D/g, '');
+
+                    //Verifica se campo cep possui valor informado.
+                    if (cep != "") {
+
+                        //Expressão regular para validar o CEP.
+                        var validacep = /^[0-9]{8}$/;
+
+                        //Valida o formato do CEP.
+                        if (validacep.test(cep)) {
+
+                            //Preenche os campos com "..." enquanto consulta webservice.
+                            document.getElementById('frmPerfil:' + 'rua').value = "...";
+                            document.getElementById('frmPerfil:' + 'bairro').value = "...";
+                            document.getElementById('frmPerfil:' + 'cidade').value = "...";
+                            document.getElementById('frmPerfil:' + 'uf').value = "...";
+
+                            //Cria um elemento javascript.
+                            var script = document.createElement('script');
+
+                            //Sincroniza com o callback.
+                            script.src = '//viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
+
+                            //Insere script no documento e carrega o conteúdo.
+                            document.body.appendChild(script);
+
+                        } //end if.
+                        else {
+                            //cep é inválido.
+                            limpa_formulário_cep();
+                            alert("Formato de CEP inválido.");
+                        }
+                    } //end if.
+                    else {
+                        //cep sem valor, limpa formulário.
+                        limpa_formulário_cep();
+                    }
+                }
+                ;
+
+            </script>
+        </ui:define>
+        <ui:define name="content_page_inicial">
+        </ui:define> 
+        <ui:define name="content">
+            <h:form id="frmPerfil">
+                <h3 style="margin-top:0">Cadastro perfil</h3>
+                <p:panel footer="#{loginController.nomeUsuario}">
+                    <h3>Informações pessoais</h3>
+                    <p:separator/>
+                    <h:panelGrid columns="2">
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Nome" />
+                            <p:inputText/>
+                            <p:outputLabel value="Idade" />
+                            <p:inputText/>
+                            <p:outputLabel value="Telefone:" />
+                            <p:inputText/>
+                            <p:outputLabel value="Email" />
+                            <p:inputText/>
+                            <p:outputLabel value="CNH" />
+                            <p:inputText/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            
+                            <p:outputLabel value="Cep:" />
+                            <p:inputText id="cep" value="" size="10" onblur="pesquisacep(this.value);" maxlength="12"/>
+                            <p:outputLabel value="Estado:" />
+                            <p:inputText id="uf"  value="#{perfilController.current.endereco.rua}"/>
+                            <p:outputLabel value="Cidade:" />
+                            <p:inputText id="cidade"  value="#{perfilController.current.endereco.rua}"/>
+                            <p:outputLabel value="Bairro:" />
+                            <p:inputText id="bairro" value="#{perfilController.current.endereco.rua}"/>
+                            <p:outputLabel value="Rua:" />
+                            <p:inputText id="rua"  value="#{perfilController.current.endereco.rua}"/>
+                            <p:outputLabel value="Número:" />
+                            <p:inputText   value="#{perfilController.current.endereco.rua}"/>
+                            <p:outputLabel value="Complemento:" />
+                            <p:inputText   value="#{perfilController.current.endereco.rua}"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h3>Objetivo</h3>
+                    <p:separator/>
+                    <h:panelGrid columns="1" style="width: 100%;">
+                        <p:outputLabel value="Objetivo"/>
+                        <p:inputTextarea style="width: 40%;" />
+                    </h:panelGrid>
+                    <h3>Formação</h3>
+                    <p:separator/>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th><p:outputLabel value="Tipo formação:" /></th>
+                                    <th> <p:outputLabel value="Curso" /></th>
+                                    <th><p:outputLabel value="Instituição" /></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><h:selectOneMenu styleClass="form-control" value="#{perfilController.formacao.tipoFormacao}">
+                                            <f:selectItem value="#{null}" itemLabel="Selecione"/>
+                                            <f:selectItems value="#{perfilController.listaTipoFormacao}" var="tipo" itemValue="#{tipo}" itemLabel="#{tipo.label}"/>
+                                        </h:selectOneMenu>
+                                    </td>
+                                    <td><p:inputText style="width: 100%"/></td>
+                                    <td> <p:inputText style="width: 100%"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h3>Qualificações</h3>
+                    <p:separator/>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th><p:outputLabel value="Curso/Palestra:" /></th>
+                                    <th> <p:outputLabel value="Carga horária" /></th>
+                                    <th><p:outputLabel value="AnoTérminio" /></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><p:inputText style="width: 100%"/></td>
+                                    <td><p:inputText style="width: 100%"/></td>
+                                    <td><p:calendar pattern="yyyy" style="width: 100%"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>Experiências</h3>
+                    <p:separator/>
+                    <div class="table-responsive">
+                        <table class="table table-hover" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th><p:outputLabel value="Local:" /></th>
+                                    <th> <p:outputLabel value="Data de Entrada:" /></th>
+                                    <th><p:outputLabel value="Data de saída" /></th>
+
+                                </tr>
+                            </thead>
+                            <tbody style="width: 100%">
+                                <tr style="width: 100%">
+                                    <td><p:inputText style="width: 100%"/></td>
+                                    <td><p:calendar pattern="yyyy" style="width: 100%"/></td>
+                                    <td><p:calendar pattern="yyyy" style="width: 100%"/></td>
+                                </tr>
+                                <tr style="width: 100%">
+                                    <td  style="width: 100%">
+                                        <h:panelGrid columns="1" style="width: 100%" >
+                                            <tr >
+                                                <th style="width: 100%"><p:outputLabel value="Breve descrição:" style="width: 100%" /></th>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 100% !important" ><p:inputTextarea style="width: 100%" /></td>
+                                            </tr>
+                                        </h:panelGrid>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h3>Informações adicionais</h3>
+                    <p:separator/>
+                    <p:inputTextarea style="width: 100%" />
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

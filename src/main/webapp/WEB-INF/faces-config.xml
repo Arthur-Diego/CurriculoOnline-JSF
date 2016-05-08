@@ -16,6 +16,12 @@
             <supported-locale>en_US</supported-locale>
         </locale-config>
     </application>
-    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>perfil</from-outcome>
+            <to-view-id>/perfil/perfil.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
     
 </faces-config>

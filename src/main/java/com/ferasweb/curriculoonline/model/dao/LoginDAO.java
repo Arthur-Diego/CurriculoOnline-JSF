@@ -20,7 +20,6 @@ import javax.persistence.Query;
  *
  * @author Andressa
  */
-@Named
 public class LoginDAO extends AbstractEntityBeans<Login, Integer> {
 
     @PersistenceContext(unitName = "curriculoPU")

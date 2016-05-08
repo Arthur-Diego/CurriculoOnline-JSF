@@ -7,12 +7,15 @@ package com.ferasweb.curriculoonline.model.entity;
 
 import com.ferasweb.curriculoonline.model.commons.EntityInterface;
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import org.hibernate.annotations.Type;
 
 /**
  *
@@ -30,8 +33,17 @@ public class Experiencia implements EntityInterface<Experiencia>{
     @Column(name = "Experiencia_Empresa")
     private String empresa;
     
-    @Column(name = "Experiencia_Tempo_Trabalho")
-    private String tempoTrabalho;
+    @Column(name = "Experiencia_Data_Inicio")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dataInicio;
+    
+    @Column(name = "Experiencia_Data_Fim")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dataFinal;
+    
+    @Type(type = "text")
+    @Column(name = "Experiencia_Desc")
+    private String descExperiencia;
 
     public Integer getExperienciaCod() {
         return experienciaCod;
@@ -49,15 +61,30 @@ public class Experiencia implements EntityInterface<Experiencia>{
         this.empresa = empresa;
     }
 
-    public String getTempoTrabalho() {
-        return tempoTrabalho;
+    public Date getDataInicio() {
+        return dataInicio;
     }
 
-    public void setTempoTrabalho(String tempoTrabalho) {
-        this.tempoTrabalho = tempoTrabalho;
+    public void setDataInicio(Date dataInicio) {
+        this.dataInicio = dataInicio;
     }
-    
-    
+
+    public Date getDataFinal() {
+        return dataFinal;
+    }
+
+    public void setDataFinal(Date dataFinal) {
+        this.dataFinal = dataFinal;
+    }
+
+    public String getDescExperiencia() {
+        return descExperiencia;
+    }
+
+    public void setDescExperiencia(String descExperiencia) {
+        this.descExperiencia = descExperiencia;
+    }
+
     @Override
     public Serializable getId() {
         return this.getExperienciaCod();
@@ -88,7 +115,6 @@ public class Experiencia implements EntityInterface<Experiencia>{
         int hash = 3;
         hash = 17 * hash + (this.experienciaCod != null ? this.experienciaCod.hashCode() : 0);
         hash = 17 * hash + (this.empresa != null ? this.empresa.hashCode() : 0);
-        hash = 17 * hash + (this.tempoTrabalho != null ? this.tempoTrabalho.hashCode() : 0);
         return hash;
     }
 
@@ -105,9 +131,6 @@ public class Experiencia implements EntityInterface<Experiencia>{
             return false;
         }
         if ((this.empresa == null) ? (other.empresa != null) : !this.empresa.equals(other.empresa)) {
-            return false;
-        }
-        if ((this.tempoTrabalho == null) ? (other.tempoTrabalho != null) : !this.tempoTrabalho.equals(other.tempoTrabalho)) {
             return false;
         }
         return true;
