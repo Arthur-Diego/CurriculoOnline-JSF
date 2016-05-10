@@ -7,6 +7,7 @@ package com.ferasweb.curriculoonline.model.entity;
 
 import com.ferasweb.curriculoonline.model.commons.EntityInterface;
 import com.ferasweb.curriculoonline.model.enumerated.EnumEstadoCivil;
+import com.ferasweb.curriculoonline.model.enumerated.EnumTipoHabilitacao;
 import java.io.Serializable;
 import java.util.Arrays;
 import javax.persistence.CascadeType;
@@ -15,7 +16,6 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,7 +33,7 @@ import javax.persistence.Table;
 public class Perfil implements EntityInterface<Perfil>{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     @Column(name = "Perfil_Cod")
     private Integer perfilCod;
     
@@ -63,16 +63,21 @@ public class Perfil implements EntityInterface<Perfil>{
     @Column(name = "Perfil_CNH")
     private String CNH;
     
+    @Enumerated(EnumType.STRING)
     @Column(name = "Perfil_Tipo_Habilit")
-    private String tipoHabilitacao;
+    private EnumTipoHabilitacao tipoHabilitacao;
     
     @Embedded
     private Endereco endereco;
     
-    @OneToOne
+    @OneToOne(targetEntity = Login.class)
     @JoinColumn(name = "Login_Cod", nullable = false)
     private Login login;
-
+    
+    public Perfil(){
+        endereco = new Endereco();
+    }
+    
     public Conhecimento getConhecimento() {
         return conhecimento;
     }
@@ -89,11 +94,11 @@ public class Perfil implements EntityInterface<Perfil>{
         this.CNH = CNH;
     }
 
-    public String getTipoHabilitacao() {
+    public EnumTipoHabilitacao getTipoHabilitacao() {
         return tipoHabilitacao;
     }
 
-    public void setTipoHabilitacao(String tipoHabilitacao) {
+    public void setTipoHabilitacao(EnumTipoHabilitacao tipoHabilitacao) {
         this.tipoHabilitacao = tipoHabilitacao;
     }
 

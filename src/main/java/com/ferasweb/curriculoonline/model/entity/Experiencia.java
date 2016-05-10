@@ -26,7 +26,7 @@ import org.hibernate.annotations.Type;
 public class Experiencia implements EntityInterface<Experiencia>{
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     @Column(name = "Experiencia_Cod")
     private Integer experienciaCod;
     

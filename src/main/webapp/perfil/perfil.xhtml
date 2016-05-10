@@ -17,7 +17,7 @@ and open the template in the editor.
         <ui:define name="content">
             <h:form id="frmPerfil">
                 <h3 style="margin-top:0">Cadastro perfil</h3>
-                <p:panel footer="#{loginController.nomeUsuario}">
+                <p:panel footer="#{loginController.nomeUsuario}" id="panelMain">
                     <h3>Informações pessoais</h3>
                     <p:separator/>
                     <h:panelGrid columns="2" style="width: 100%">
@@ -26,62 +26,71 @@ and open the template in the editor.
                                 <div class="form-group">
                                     <label class="col-md-2 control-label" for="textinput">Nome:</label>  
                                     <div class="col-md-8">
-                                        <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md"/>
-
+                                        <p:inputText value="#{perfilController.current.nome}"  placeholder="Nome completo" styleClass="form-control input-md">
+                                            <p:ajax event="blur" process="@this" listener="#{perfilController.prepareCreate()}"/>
+                                        </p:inputText>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label" for="textinput">Idade:</label>  
                                     <div class="col-md-6">
-                                        <input id="textinput" name="textinput" type="text" placeholder="placeholder" class="form-control input-md" required=""/>
+                                        <p:inputText value="#{perfilController.current.idade}"   placeholder="Idade" styleClass="form-control input-md" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label" for="textinput">Telefone</label>  
                                     <div class="col-md-6">
-                                        <input id="textinput" name="textinput" type="text" placeholder="placeholder" class="form-control input-md"/>
+                                        <p:inputMask placeholder="Telefone" mask="(999)99999-9999" value="#{perfilController.current.telefone}"   styleClass="form-control input-md"/>
 
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label" for="textinput">Email</label>  
                                     <div class="col-md-6">
-                                        <input id="textinput" name="textinput" type="text" placeholder="placeholder" class="form-control input-md"/>
+                                        <p:inputText value="#{perfilController.current.email}"  placeholder="Email" styleClass="form-control input-md"/>
 
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label" for="textinput">CNH</label>  
                                     <div class="col-md-4">
-                                        <input id="textinput" name="textinput" type="text" placeholder="placeholder" class="form-control input-md"/>
+                                        <p:inputText value="#{perfilController.current.CNH}"  placeholder="CNH" styleClass="form-control input-md"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="textinput">Habilitação</label>
+                                    <div class="col-md-4">
+                                        <h:selectOneMenu styleClass="form-control input-md" value="#{perfilController.current.tipoHabilitacao}">
+                                            <f:selectItems value="#{perfilController.listaTipoHabilitacao}" var="tipo" itemValue="#{tipo}" itemLabel="#{tipo.label}"/>
+                                        </h:selectOneMenu>
                                     </div>
                                 </div>
                             </div>
                         </h:panelGroup>
                         <h:panelGroup>
-                            <div class="form-horizontal" style="margin-top: 46px;">
+                            <div class="form-horizontal" >
                                 <div class="form-group">
                                     <p:outputLabel value="Cep:" styleClass="col-md-2 control-label" />
                                     <div class="col-md-4">
-                                        <p:inputText styleClass="form-control input-md" id="cep" value="" onblur="pesquisacep(this.value);" maxlength="9"/>
+                                        <p:inputText styleClass="form-control input-md" id="cep" value="#{perfilController.current.endereco.CEP}" onblur="pesquisacep(this.value);" maxlength="9"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <p:outputLabel value="UF:" styleClass="col-md-2 control-label"/>
                                     <div class="col-md-6">
-                                        <p:inputText styleClass="form-control input-md" id="uf"  value="#{perfilController.current.endereco.rua}"/>
+                                        <p:inputText styleClass="form-control input-md" id="uf"  value="#{perfilController.current.endereco.estado}"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <p:outputLabel value="Cidade:" styleClass="col-md-2 control-label"/>
                                     <div class="col-md-6">
-                                        <p:inputText styleClass="form-control input-md" id="cidade"  value="#{perfilController.current.endereco.rua}"/>
+                                        <p:inputText styleClass="form-control input-md" id="cidade"  value="#{perfilController.current.endereco.cidade}"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <p:outputLabel value="Bairro:" styleClass="col-md-2 control-label"/>
                                     <div class="col-md-6">
-                                        <p:inputText styleClass="form-control input-md" id="bairro" value="#{perfilController.current.endereco.rua}"/>
+                                        <p:inputText styleClass="form-control input-md" id="bairro" value="#{perfilController.current.endereco.bairro}"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -93,7 +102,7 @@ and open the template in the editor.
                                 <div class="form-group">
                                     <p:outputLabel value="Número:" styleClass="col-md-2 control-label"/>
                                     <div class="col-md-4">
-                                        <p:inputText styleClass="form-control input-md"   value="#{perfilController.current.endereco.rua}"/>
+                                        <p:inputText styleClass="form-control input-md"   value="#{perfilController.current.endereco.numero}"/>
                                     </div>
                                 </div>
                             </div>
@@ -103,90 +112,148 @@ and open the template in the editor.
                     <p:separator/>
                     <h:panelGrid columns="1" style="width: 100%;">
                         <p:outputLabel value="Objetivo"/>
-                        <p:inputTextarea style="width: 40%;" />
+                        <p:inputTextarea style="width: 40%;" value="#{perfilController.conhecimento.objetivo}"/>
                     </h:panelGrid>
                     <h3>Formação</h3>
                     <p:separator/>
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th><p:outputLabel value="Tipo formação:" /></th>
-                                    <th> <p:outputLabel value="Curso" /></th>
-                                    <th><p:outputLabel value="Instituição" /></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><h:selectOneMenu styleClass="form-control" value="#{perfilController.formacao.tipoFormacao}">
-                                            <f:selectItem value="#{null}" itemLabel="Selecione"/>
-                                            <f:selectItems value="#{perfilController.listaTipoFormacao}" var="tipo" itemValue="#{tipo}" itemLabel="#{tipo.label}"/>
-                                        </h:selectOneMenu>
-                                    </td>
-                                    <td><p:inputText style="width: 100%"/></td>
-                                    <td> <p:inputText style="width: 100%"/></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <h:panelGroup id="panelFormacao">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th><p:outputLabel value="Tipo formação:" /></th>
+                                        <th> <p:outputLabel value="Curso" /></th>
+                                        <th><p:outputLabel value="Instituição" /></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <ui:repeat id="listFormacao" value="#{perfilController.listaFormacao}" var="formacao">
+                                        <tr>
+                                            <td><h:selectOneMenu styleClass="form-control" value="#{formacao.tipoFormacao}">
+                                                    <f:selectItem value="#{null}" itemLabel="Selecione"/>
+                                                    <f:selectItems value="#{perfilController.listaTipoFormacao}" var="tipo" itemValue="#{tipo}" itemLabel="#{tipo.label}"/>
+                                                </h:selectOneMenu>
+                                            </td>
+                                            <td><p:inputText style="width: 100%" value="#{formacao.curso}"/></td>
+                                            <td> <p:inputText style="width: 100%" value="#{formacao.instituicao}"/></td>
+                                            <td>
+                                                <h:commandLink id="btnAddFormacao" styleClass="btn btn-default">
+                                                    <span class="glyphicon glyphicon-plus"></span> Add 
+                                                    <f:ajax execute=":frmPerfil:panelFormacao" render=":frmPerfil:panelFormacao" listener="#{perfilController.addFormacao()}"/>
+                                                </h:commandLink>
+                                            </td>
+                                        </tr>
+                                    </ui:repeat>
+                                </tbody>
+                            </table>
+                        </div>
+                    </h:panelGroup>
                     <h3>Qualificações</h3>
                     <p:separator/>
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th><p:outputLabel value="Curso/Palestra:" /></th>
-                                    <th> <p:outputLabel value="Carga horária" /></th>
-                                    <th><p:outputLabel value="AnoTérminio" /></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><p:inputText style="width: 100%"/></td>
-                                    <td><p:inputText style="width: 100%"/></td>
-                                    <td><p:calendar pattern="yyyy" style="width: 100%"/></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <h:panelGroup id="panelQualificacao">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th><p:outputLabel value="Curso/Palestra:" /></th>
+                                        <th> <p:outputLabel value="Carga horária" /></th>
+                                        <th><p:outputLabel value="AnoTérminio" /></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <ui:repeat id="listQualificacao" value="#{perfilController.listaQualificacao}" var="qualificacao">
+                                        <tr>
+                                            <td><p:inputText style="width: 100%" value="#{qualificacao.cursoPalestras}"/></td>
+                                            <td><p:inputText style="width: 100%" value="#{qualificacao.cargaHoraria}"/></td>
+                                            <td>
+                                                <p:inputText style="width: 100%" value="#{qualificacao.anoTerminio}"/>
+                                            </td>
+                                            <td>
+                                                <h:commandLink id="btnAddFormacao" styleClass="btn btn-default">
+                                                    <span class="glyphicon glyphicon-plus"></span> Add 
+                                                    <f:ajax execute=":frmPerfil:panelQualificacao" render=":frmPerfil:panelQualificacao" listener="#{perfilController.addQualificacao()}"/>
+                                                </h:commandLink>
+                                            </td>
+                                        </tr>
+                                    </ui:repeat>
+                                </tbody>
 
+                            </table>
+                        </div>
+                    </h:panelGroup>
                     <h3>Experiências</h3>
-                    <p:separator/>
-                    <div class="table-responsive">
-                        <table class="table table-hover" style="width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th><p:outputLabel value="Local:" /></th>
-                                    <th> <p:outputLabel value="Data de Entrada:" /></th>
-                                    <th><p:outputLabel value="Data de saída" /></th>
+                    <h:panelGroup id="panelExperiencia">
+                        <p:separator/>
+                        <div class="table-responsive">
+                            <table class="table table-hover" style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th><p:outputLabel value="Local:" /></th>
+                                        <th> <p:outputLabel value="Data de Entrada:" /></th>
+                                        <th><p:outputLabel value="Data de saída" /></th>
 
-                                </tr>
-                            </thead>
-                            <tbody style="width: 100%">
-                                <tr style="width: 100%">
-                                    <td><p:inputText style="width: 100%"/></td>
-                                    <td><p:calendar pattern="yyyy" style="width: 100%"/></td>
-                                    <td><p:calendar pattern="yyyy" style="width: 100%"/></td>
-                                </tr>
-                                <tr style="width: 100%">
-                                    <td  style="width: 100%">
-                                        <h:panelGrid columns="1" style="width: 100%" >
-                                            <tr >
-                                                <th style="width: 100%"><p:outputLabel value="Breve descrição:" style="width: 100%" /></th>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 100% !important" ><p:inputTextarea style="width: 100%" /></td>
-                                            </tr>
-                                        </h:panelGrid>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                    </tr>
+                                </thead>
+                                <tbody style="width: 100%">
+                                    <ui:repeat value="#{perfilController.listaExperiencia}" var="experiencia">
+                                        <tr style="width: 100%">
+                                            <td><p:inputText value="#{experiencia.empresa}" style="width: 100%"/></td>
+                                            <td><p:calendar value="#{experiencia.dataInicio}" pattern="MM/yyyy" style="width: 100%"/></td>
+                                            <td><p:calendar value="#{experiencia.dataFinal}" pattern="MM/yyyy" style="width: 100%"/></td>
+                                            <td>
+                                                <h:commandLink id="btnAddFormacao" styleClass="btn btn-default">
+                                                    <span class="glyphicon glyphicon-plus"></span> Add 
+                                                    <f:ajax execute=":frmPerfil:panelExperiencia" render=":frmPerfil:panelExperiencia" listener="#{perfilController.addExperiencia()}"/>
+                                                </h:commandLink>
+                                            </td>
+                                        </tr>
+                                        <tr style="width: 100%">
+                                            <td  style="width: 100%">
+                                                <h:panelGrid columns="1" style="width: 100%" >
+                                                    <tr >
+                                                        <th style="width: 100%"><p:outputLabel value="Breve descrição:" style="width: 100%" /></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 100% !important" ><p:inputTextarea value="#{experiencia.descExperiencia}" style="width: 100%" /></td>
+                                                    </tr>
+                                                </h:panelGrid>
+                                            </td>
+                                        </tr>
+                                    </ui:repeat>
+                                </tbody>
+                            </table>
+                        </div>
+                    </h:panelGroup>
                     <h3>Informações adicionais</h3>
                     <p:separator/>
-                    <p:inputTextarea style="width: 100%" />
+                    <h:panelGroup id="panelInformacao">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Informação adicional</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <ui:repeat value="#{perfilController.listaInformacaoAdicional}" var="infoAdicional">
+                                        <tr>
+                                            <td><p:inputText style="width: 100%" value="#{infoAdicional.informacao}"/></td>
+                                            <td>
+                                                <h:commandLink id="btnAddFormacao" styleClass="btn btn-default">
+                                                    <span class="glyphicon glyphicon-plus"></span> Add 
+                                                    <f:ajax execute=":frmPerfil:panelInformacao" render=":frmPerfil:panelInformacao" listener="#{perfilController.addInformacaoAdicional()}"/>
+                                                </h:commandLink>
+                                            </td>
+                                        </tr>
+                                    </ui:repeat>
+                                </tbody>
+                            </table>
+                        </div>
+                    </h:panelGroup>
                 </p:panel>
+                <h:commandButton value="salvar" id="btnSalvar" >
+                    <f:ajax execute="@all" listener="#{perfilController.createOrEdit()}"/>
+                </h:commandButton>
             </h:form>
         </ui:define>
     </ui:composition>

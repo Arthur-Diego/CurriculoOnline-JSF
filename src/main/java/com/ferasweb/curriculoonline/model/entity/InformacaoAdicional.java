@@ -23,7 +23,7 @@ import javax.persistence.Table;
 public class InformacaoAdicional implements EntityInterface<InformacaoAdicional>{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     @Column(name = "Inform_Cod")
     private Integer informCod;
     

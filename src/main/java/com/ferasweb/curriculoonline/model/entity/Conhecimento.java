@@ -29,7 +29,7 @@ import javax.persistence.Table;
 public class Conhecimento implements EntityInterface<Conhecimento>{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     @Column(name = "Conhecimento_Cod")
     private Integer conhecimentoCod;
     
@@ -37,24 +37,24 @@ public class Conhecimento implements EntityInterface<Conhecimento>{
     @Column(name = "Conhecimento_Objetivo", length = 5000)
     private String objetivo;
     
-    @OneToMany(targetEntity = Formacao.class, cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
-    @JoinColumn(name = "Conhecimento_Cod", nullable = false)
+    @OneToMany(targetEntity = Formacao.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "Conhecimento_Cod")
     private List<Formacao> formacao;
     
-    @OneToOne(targetEntity = Perfil.class, cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @OneToOne(targetEntity = Perfil.class)
     @JoinColumn(name = "Perfil_Cod")
     private Perfil perfil;
     
-    @OneToMany(targetEntity = Experiencia.class, cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
-    @JoinColumn(name = "Conhecimento_Cod", nullable = false)
+    @OneToMany(targetEntity = Experiencia.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "Conhecimento_Cod")
     private List<Experiencia> experiencia;
     
-    @OneToMany(targetEntity = Qualificacao.class, cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
-    @JoinColumn(name = "Conhecimento_Cod", nullable = false)
+    @OneToMany(targetEntity = Qualificacao.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "Conhecimento_Cod")
     private List<Qualificacao> qualificacao;
     
-    @OneToMany(targetEntity = InformacaoAdicional.class, cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
-    @JoinColumn(name = "Conhecimento_Cod", nullable = false)
+    @OneToMany(targetEntity = InformacaoAdicional.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "Conhecimento_Cod")
     private List<InformacaoAdicional> informacao;
 
     public Perfil getPerfil() {

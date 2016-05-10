@@ -16,6 +16,9 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Endereco implements Serializable {
     
+    @Column(name = "Perfil_Endereco_CEP")
+    private String CEP;
+            
     @Column(name = "Perfil_Endereco_Rua")
     private String rua;
     
@@ -34,6 +37,14 @@ public class Endereco implements Serializable {
     @Column(name = "Perfil_Endereco_Cidade")
     private String cidade;
 
+    public String getCEP() {
+        return CEP;
+    }
+
+    public void setCEP(String CEP) {
+        this.CEP = CEP;
+    }
+    
     public String getRua() {
         return rua;
     }

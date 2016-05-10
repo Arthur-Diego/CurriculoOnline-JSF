@@ -23,7 +23,7 @@ import javax.persistence.Table;
 public class Qualificacao implements EntityInterface<Qualificacao> {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     @Column(name = "Qualificacao_Cod")
     private Integer qualificacaoCod;
     

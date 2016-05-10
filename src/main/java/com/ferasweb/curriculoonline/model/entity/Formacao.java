@@ -26,7 +26,7 @@ import javax.persistence.Table;
 public class Formacao implements EntityInterface<Formacao>{
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     @Column(name = "Formacao_Cod")
     private Integer formacaoCod;
     
