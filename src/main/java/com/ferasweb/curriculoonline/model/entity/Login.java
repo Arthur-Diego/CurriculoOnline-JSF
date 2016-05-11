@@ -19,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -29,9 +30,15 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "Login")
 public class Login implements EntityInterface<Login> {
-
+    @TableGenerator(name="Login_Generator",
+            table="GENERATED_KEYS",
+            pkColumnName="PK_COLUMN",
+            valueColumnName="VALUE_COLUMN",
+            pkColumnValue="Login_ID",
+            allocationSize=10
+    )
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Login_Generator")
     @Column(name = "Login_Cod")
     private Integer loginCod;
 
@@ -51,7 +58,7 @@ public class Login implements EntityInterface<Login> {
     @Column(name = "Login_Email", length = 100, nullable = false)
     private String email;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "Login_Grupos", joinColumns = @JoinColumn(name = "Login_Cod"),
             inverseJoinColumns = @JoinColumn(name = "Grupo_Cod"))
     private List<Grupo> grupos;

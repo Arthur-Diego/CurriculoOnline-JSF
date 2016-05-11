@@ -9,6 +9,7 @@ import com.ferasweb.curriculoonline.controller.commons.EntityController;
 import com.ferasweb.curriculoonline.controller.commons.EntityPagination;
 import com.ferasweb.curriculoonline.controller.messages.MessagesView;
 import com.ferasweb.curriculoonline.exception.EntityException;
+import com.ferasweb.curriculoonline.model.dao.GrupoDAO;
 import com.ferasweb.curriculoonline.model.dao.LoginDAO;
 import com.ferasweb.curriculoonline.model.entity.Grupo;
 import com.ferasweb.curriculoonline.model.entity.Login;
@@ -33,6 +34,9 @@ public class UsuarioController extends EntityController<Login> implements Serial
 
     @Inject
     private LoginDAO loginDao;
+    
+    @Inject
+    private GrupoDAO grupoDao;
 
     @Inject
     private MessagesView msg;
@@ -66,9 +70,8 @@ public class UsuarioController extends EntityController<Login> implements Serial
     }
 
     public void setGrupoIntoUsuario(Login usuario) {
-        this.grupo = new Grupo("ROLE_USER", "ROLE_USER");
         List<Grupo> grupos = new ArrayList();
-        grupos.add(grupo);
+        grupos.add(grupoDao.find(1));
         usuario.setGrupos(grupos);
         usuario.setDataRegistro(new Date());
     }

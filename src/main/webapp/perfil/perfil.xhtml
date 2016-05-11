@@ -24,43 +24,45 @@ and open the template in the editor.
                         <h:panelGroup>
                             <div class="form-horizontal" style="margin-top: 0;">
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label" for="textinput">Nome:</label>  
+                                    <label class="col-md-2 control-label" for="textinput">#{msg.nome}</label>  
                                     <div class="col-md-8">
-                                        <p:inputText value="#{perfilController.current.nome}"  placeholder="Nome completo" styleClass="form-control input-md">
+                                        <p:inputText label="#{msg.nome}" required="true" value="#{perfilController.current.nome}"  placeholder="Nome completo" styleClass="form-control input-md">
                                             <p:ajax event="blur" process="@this" listener="#{perfilController.prepareCreate()}"/>
                                         </p:inputText>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label" for="textinput">Idade:</label>  
+                                    <label class="col-md-2 control-label" for="textinput">#{msg.idade}</label>  
                                     <div class="col-md-6">
-                                        <p:inputText value="#{perfilController.current.idade}"   placeholder="Idade" styleClass="form-control input-md" />
+                                        <p:inputText label="#{msg.idade}" required="true" value="#{perfilController.current.idade}"   placeholder="Idade" styleClass="form-control input-md" />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label" for="textinput">Telefone</label>  
+                                    <label class="col-md-2 control-label" for="textinput">#{msg.telefone}</label>  
                                     <div class="col-md-6">
-                                        <p:inputMask placeholder="Telefone" mask="(999)99999-9999" value="#{perfilController.current.telefone}"   styleClass="form-control input-md"/>
+                                        <p:inputMask label="#{msg.telefone}" required="true" placeholder="Telefone" mask="(999)99999-9999" value="#{perfilController.current.telefone}"   styleClass="form-control input-md"/>
 
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label" for="textinput">Email</label>  
+                                    <label class="col-md-2 control-label" for="textinput">#{msg.email}</label>  
                                     <div class="col-md-6">
-                                        <p:inputText value="#{perfilController.current.email}"  placeholder="Email" styleClass="form-control input-md"/>
+                                        <p:inputText label="#{msg.email}" required="true" value="#{perfilController.current.email}"  placeholder="Email" styleClass="form-control input-md"/>
 
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label" for="textinput">CNH</label>  
+                                    <label class="col-md-2 control-label" for="textinput">#{msg.estadoCivil}</label>  
                                     <div class="col-md-4">
-                                        <p:inputText value="#{perfilController.current.CNH}"  placeholder="CNH" styleClass="form-control input-md"/>
+                                        <h:selectOneMenu required="true" label="#{msg.estadoCivil}" styleClass="form-control input-md" value="#{perfilController.current.estadoCivil}">
+                                            <f:selectItems value="#{perfilController.listaEstadoCivil}" var="tipo" itemValue="#{tipo}" itemLabel="#{tipo.label}"/>
+                                        </h:selectOneMenu>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label" for="textinput">Habilitação</label>
+                                    <label class="col-md-2 control-label" for="textinput">#{msg.habilitacao}</label>
                                     <div class="col-md-4">
-                                        <h:selectOneMenu styleClass="form-control input-md" value="#{perfilController.current.tipoHabilitacao}">
+                                        <h:selectOneMenu required="true" label="#{msg.habilitacao}" styleClass="form-control input-md" value="#{perfilController.current.tipoHabilitacao}">
                                             <f:selectItems value="#{perfilController.listaTipoHabilitacao}" var="tipo" itemValue="#{tipo}" itemLabel="#{tipo.label}"/>
                                         </h:selectOneMenu>
                                     </div>
@@ -70,39 +72,39 @@ and open the template in the editor.
                         <h:panelGroup>
                             <div class="form-horizontal" >
                                 <div class="form-group">
-                                    <p:outputLabel value="Cep:" styleClass="col-md-2 control-label" />
+                                    <p:outputLabel value="#{msg.cep}:" styleClass="col-md-2 control-label" />
                                     <div class="col-md-4">
-                                        <p:inputText styleClass="form-control input-md" id="cep" value="#{perfilController.current.endereco.CEP}" onblur="pesquisacep(this.value);" maxlength="9"/>
+                                        <p:inputText label="#{msg.cep}" styleClass="form-control input-md" id="cep" value="#{perfilController.current.endereco.CEP}" onblur="pesquisacep(this.value);" maxlength="9"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <p:outputLabel value="UF:" styleClass="col-md-2 control-label"/>
                                     <div class="col-md-6">
-                                        <p:inputText styleClass="form-control input-md" id="uf"  value="#{perfilController.current.endereco.estado}"/>
+                                        <p:inputText required="true" label="#{msg.uf}" styleClass="form-control input-md" id="uf"  value="#{perfilController.current.endereco.estado}"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <p:outputLabel value="Cidade:" styleClass="col-md-2 control-label"/>
                                     <div class="col-md-6">
-                                        <p:inputText styleClass="form-control input-md" id="cidade"  value="#{perfilController.current.endereco.cidade}"/>
+                                        <p:inputText required="true" label="#{msg.cidade}" styleClass="form-control input-md" id="cidade"  value="#{perfilController.current.endereco.cidade}"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <p:outputLabel value="Bairro:" styleClass="col-md-2 control-label"/>
                                     <div class="col-md-6">
-                                        <p:inputText styleClass="form-control input-md" id="bairro" value="#{perfilController.current.endereco.bairro}"/>
+                                        <p:inputText required="true" label="#{msg.bairro}" styleClass="form-control input-md" id="bairro" value="#{perfilController.current.endereco.bairro}"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <p:outputLabel value="Rua:" styleClass="col-md-2 control-label"/>
                                     <div class="col-sm-8">
-                                        <p:inputText styleClass="form-control input-md" id="rua"  value="#{perfilController.current.endereco.rua}"/>
+                                        <p:inputText required="true" label="#{msg.rua}" styleClass="form-control input-md" id="rua"  value="#{perfilController.current.endereco.rua}"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <p:outputLabel value="Número:" styleClass="col-md-2 control-label"/>
                                     <div class="col-md-4">
-                                        <p:inputText styleClass="form-control input-md"   value="#{perfilController.current.endereco.numero}"/>
+                                        <p:inputText label="#{msg.numero}" styleClass="form-control input-md"   value="#{perfilController.current.endereco.numero}"/>
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +114,7 @@ and open the template in the editor.
                     <p:separator/>
                     <h:panelGrid columns="1" style="width: 100%;">
                         <p:outputLabel value="Objetivo"/>
-                        <p:inputTextarea style="width: 40%;" value="#{perfilController.conhecimento.objetivo}"/>
+                        <p:inputTextarea label#{msg.objetivo} required="true" style="width: 40%;" value="#{perfilController.conhecimento.objetivo}"/>
                     </h:panelGrid>
                     <h3>Formação</h3>
                     <p:separator/>
@@ -121,9 +123,9 @@ and open the template in the editor.
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th><p:outputLabel value="Tipo formação:" /></th>
-                                        <th> <p:outputLabel value="Curso" /></th>
-                                        <th><p:outputLabel value="Instituição" /></th>
+                                        <th><p:outputLabel value="#{msg.tipoFormacao}" /></th>
+                                        <th> <p:outputLabel value="#{msg.curso}" /></th>
+                                        <th><p:outputLabel value="#{msg.instituicao}" /></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -138,7 +140,7 @@ and open the template in the editor.
                                             <td> <p:inputText style="width: 100%" value="#{formacao.instituicao}"/></td>
                                             <td>
                                                 <h:commandLink id="btnAddFormacao" styleClass="btn btn-default">
-                                                    <span class="glyphicon glyphicon-plus"></span> Add 
+                                                    <span class="glyphicon glyphicon-plus"></span> 
                                                     <f:ajax execute=":frmPerfil:panelFormacao" render=":frmPerfil:panelFormacao" listener="#{perfilController.addFormacao()}"/>
                                                 </h:commandLink>
                                             </td>
@@ -148,16 +150,16 @@ and open the template in the editor.
                             </table>
                         </div>
                     </h:panelGroup>
-                    <h3>Qualificações</h3>
+                    <h3>#{msg.qualificacoes}</h3>
                     <p:separator/>
                     <h:panelGroup id="panelQualificacao">
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th><p:outputLabel value="Curso/Palestra:" /></th>
-                                        <th> <p:outputLabel value="Carga horária" /></th>
-                                        <th><p:outputLabel value="AnoTérminio" /></th>
+                                        <th><p:outputLabel value="#{msg.cursoPalestra}" /></th>
+                                        <th> <p:outputLabel value="#{msg.cargaHoraria}" /></th>
+                                        <th><p:outputLabel value="#{msg.anoTerminio}" /></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -181,16 +183,16 @@ and open the template in the editor.
                             </table>
                         </div>
                     </h:panelGroup>
-                    <h3>Experiências</h3>
+                    <h3>#{msg.experiencias}</h3>
                     <h:panelGroup id="panelExperiencia">
                         <p:separator/>
                         <div class="table-responsive">
                             <table class="table table-hover" style="width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th><p:outputLabel value="Local:" /></th>
-                                        <th> <p:outputLabel value="Data de Entrada:" /></th>
-                                        <th><p:outputLabel value="Data de saída" /></th>
+                                        <th><p:outputLabel value="#{msg.local}" /></th>
+                                        <th> <p:outputLabel value="#{msg.dataEntrada}" /></th>
+                                        <th><p:outputLabel value="#{msg.dataSaida}" /></th>
 
                                     </tr>
                                 </thead>
@@ -224,14 +226,14 @@ and open the template in the editor.
                             </table>
                         </div>
                     </h:panelGroup>
-                    <h3>Informações adicionais</h3>
+                    <h3>#{msg.informacaoAdicionais}</h3>
                     <p:separator/>
                     <h:panelGroup id="panelInformacao">
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Informação adicional</th>
+                                        <th>#{msg.informacaoAdicional}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -250,10 +252,12 @@ and open the template in the editor.
                             </table>
                         </div>
                     </h:panelGroup>
-                </p:panel>
-                <h:commandButton value="salvar" id="btnSalvar" >
-                    <f:ajax execute="@all" listener="#{perfilController.createOrEdit()}"/>
-                </h:commandButton>
+                </p:panel> 
+                <div class="col-md-8">
+                    <h:commandButton value="#{msg.salvar}" id="btnSalvar" >
+                        <f:ajax execute="@all" listener="#{perfilController.createOrEdit()}"/>
+                    </h:commandButton>
+                </div>
             </h:form>
         </ui:define>
     </ui:composition>

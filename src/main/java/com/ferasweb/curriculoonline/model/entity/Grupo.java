@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 /**
  *
@@ -22,9 +23,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Grupo")
 public class Grupo implements EntityInterface<Grupo>{
-
+    
+    @TableGenerator(name="Grupo_Generator",
+            table="GENERATED_KEYS",
+            pkColumnName="PK_COLUMN",
+            valueColumnName="VALUE_COLUMN",
+            pkColumnValue="Grupó_ID",
+            allocationSize=10
+    )
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Grupo_Generator")
     @Column(name = "Grupo_Cod")
     private Integer grupoCod;
     

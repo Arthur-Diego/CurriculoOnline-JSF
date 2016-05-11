@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 /**
  *
@@ -22,8 +23,15 @@ import javax.persistence.Table;
 @Table(name = "Informacao_Adicional")
 public class InformacaoAdicional implements EntityInterface<InformacaoAdicional>{
 
+    @TableGenerator(name="Inform_Generator",
+            table="GENERATED_KEYS",
+            pkColumnName="PK_COLUMN",
+            valueColumnName="VALUE_COLUMN",
+            pkColumnValue="Inform_ID",
+            allocationSize=10
+    )
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Inform_Generator")
     @Column(name = "Inform_Cod")
     private Integer informCod;
     

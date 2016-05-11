@@ -23,6 +23,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 /**
  *
@@ -31,9 +32,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Perfil")
 public class Perfil implements EntityInterface<Perfil>{
-
+    
+    @TableGenerator(name="Perfil_Generator",
+            table="GENERATED_KEYS",
+            pkColumnName="PK_COLUMN",
+            valueColumnName="VALUE_COLUMN",
+            pkColumnValue="Perfil_ID",
+            allocationSize=10
+    )
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Perfil_Generator")
     @Column(name = "Perfil_Cod")
     private Integer perfilCod;
     
@@ -44,13 +52,13 @@ public class Perfil implements EntityInterface<Perfil>{
     private String nome;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "Perfil_Estado_Civil")
+    @Column(name = "Perfil_Estado_Civil", nullable = false)
     private EnumEstadoCivil estadoCivil;
     
-    @Column(name = "Perfil_Idade")
+    @Column(name = "Perfil_Idade", nullable = false)
     private Integer idade;
     
-    @Column(name = "Perfil_Telefone")
+    @Column(name = "Perfil_Telefone", nullable = false)
     private String telefone;
     
     @Lob
@@ -59,9 +67,6 @@ public class Perfil implements EntityInterface<Perfil>{
     
     @Column(name = "Perfil_Email")
     private String email;
-    
-    @Column(name = "Perfil_CNH")
-    private String CNH;
     
     @Enumerated(EnumType.STRING)
     @Column(name = "Perfil_Tipo_Habilit")
@@ -84,14 +89,6 @@ public class Perfil implements EntityInterface<Perfil>{
 
     public void setConhecimento(Conhecimento conhecimento) {
         this.conhecimento = conhecimento;
-    }
-
-    public String getCNH() {
-        return CNH;
-    }
-
-    public void setCNH(String CNH) {
-        this.CNH = CNH;
     }
 
     public EnumTipoHabilitacao getTipoHabilitacao() {

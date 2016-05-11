@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import org.hibernate.annotations.Type;
 
@@ -24,9 +25,15 @@ import org.hibernate.annotations.Type;
 @Entity
 @Table(name = "Experiencia")
 public class Experiencia implements EntityInterface<Experiencia>{
-    
+    @TableGenerator(name="Experiencia_Generator",
+            table="GENERATED_KEYS",
+            pkColumnName="PK_COLUMN",
+            valueColumnName="VALUE_COLUMN",
+            pkColumnValue="Experiencia_ID",
+            allocationSize=10
+    )
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Experiencia_Generator")
     @Column(name = "Experiencia_Cod")
     private Integer experienciaCod;
     

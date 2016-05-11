@@ -19,6 +19,7 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 /**
  *
@@ -27,18 +28,25 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Conhecimento")
 public class Conhecimento implements EntityInterface<Conhecimento>{
-
+    
+    @TableGenerator(name="Conhecimento_Generator",
+            table="GENERATED_KEYS",
+            pkColumnName="PK_COLUMN",
+            valueColumnName="VALUE_COLUMN",
+            pkColumnValue="Conhecimento_ID",
+            allocationSize=10
+    )
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Conhecimento_Generator")
     @Column(name = "Conhecimento_Cod")
     private Integer conhecimentoCod;
     
     @Lob
-    @Column(name = "Conhecimento_Objetivo", length = 5000)
+    @Column(name = "Conhecimento_Objetivo", length = 5000, nullable = false)
     private String objetivo;
     
     @OneToMany(targetEntity = Formacao.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "Conhecimento_Cod")
+    @JoinColumn(name = "Conhecimento_Cod", nullable = true)
     private List<Formacao> formacao;
     
     @OneToOne(targetEntity = Perfil.class)
@@ -46,15 +54,15 @@ public class Conhecimento implements EntityInterface<Conhecimento>{
     private Perfil perfil;
     
     @OneToMany(targetEntity = Experiencia.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "Conhecimento_Cod")
+    @JoinColumn(name = "Conhecimento_Cod", nullable = true)
     private List<Experiencia> experiencia;
     
     @OneToMany(targetEntity = Qualificacao.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "Conhecimento_Cod")
+    @JoinColumn(name = "Conhecimento_Cod", nullable = true)
     private List<Qualificacao> qualificacao;
     
     @OneToMany(targetEntity = InformacaoAdicional.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "Conhecimento_Cod")
+    @JoinColumn(name = "Conhecimento_Cod", nullable = true)
     private List<InformacaoAdicional> informacao;
 
     public Perfil getPerfil() {

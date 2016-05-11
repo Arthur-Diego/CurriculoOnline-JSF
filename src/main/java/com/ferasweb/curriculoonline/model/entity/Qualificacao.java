@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 /**
  *
@@ -22,8 +23,15 @@ import javax.persistence.Table;
 @Table(name = "Qualificacao")
 public class Qualificacao implements EntityInterface<Qualificacao> {
     
+    @TableGenerator(name="Qualificacao_Generator",
+            table="GENERATED_KEYS",
+            pkColumnName="PK_COLUMN",
+            valueColumnName="VALUE_COLUMN",
+            pkColumnValue="Qualificacao_ID",
+            allocationSize=10
+    )
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Qualificacao_Generator")
     @Column(name = "Qualificacao_Cod")
     private Integer qualificacaoCod;
     

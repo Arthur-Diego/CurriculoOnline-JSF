@@ -19,22 +19,19 @@ public class Endereco implements Serializable {
     @Column(name = "Perfil_Endereco_CEP")
     private String CEP;
             
-    @Column(name = "Perfil_Endereco_Rua")
+    @Column(name = "Perfil_Endereco_Rua", nullable = false)
     private String rua;
     
     @Column(name = "Perfil_Endereco_Numero")
     private String numero;
     
-    @Column(name = "Perfil_Endereco_Complemento")
-    private String complemento;
-    
     @Column(name = "Perfil_Endereco_Bairro")
     private String bairro;
     
-    @Column(name = "Perfil_Endereco_Estado")
+    @Column(name = "Perfil_Endereco_Estado", nullable = false)
     private String estado;
     
-    @Column(name = "Perfil_Endereco_Cidade")
+    @Column(name = "Perfil_Endereco_Cidade", nullable = false)
     private String cidade;
 
     public String getCEP() {
@@ -59,14 +56,6 @@ public class Endereco implements Serializable {
 
     public void setNumero(String numero) {
         this.numero = numero;
-    }
-
-    public String getComplemento() {
-        return complemento;
-    }
-
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
     }
 
     public String getBairro() {
@@ -98,7 +87,6 @@ public class Endereco implements Serializable {
         int hash = 3;
         hash = 47 * hash + (this.rua != null ? this.rua.hashCode() : 0);
         hash = 47 * hash + (this.numero != null ? this.numero.hashCode() : 0);
-        hash = 47 * hash + (this.complemento != null ? this.complemento.hashCode() : 0);
         hash = 47 * hash + (this.bairro != null ? this.bairro.hashCode() : 0);
         hash = 47 * hash + (this.estado != null ? this.estado.hashCode() : 0);
         hash = 47 * hash + (this.cidade != null ? this.cidade.hashCode() : 0);
@@ -118,9 +106,6 @@ public class Endereco implements Serializable {
             return false;
         }
         if ((this.numero == null) ? (other.numero != null) : !this.numero.equals(other.numero)) {
-            return false;
-        }
-        if ((this.complemento == null) ? (other.complemento != null) : !this.complemento.equals(other.complemento)) {
             return false;
         }
         if ((this.bairro == null) ? (other.bairro != null) : !this.bairro.equals(other.bairro)) {

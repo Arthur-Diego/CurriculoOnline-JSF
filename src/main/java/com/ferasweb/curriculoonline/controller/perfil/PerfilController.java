@@ -18,6 +18,7 @@ import com.ferasweb.curriculoonline.model.entity.InformacaoAdicional;
 import com.ferasweb.curriculoonline.model.entity.Login;
 import com.ferasweb.curriculoonline.model.entity.Perfil;
 import com.ferasweb.curriculoonline.model.entity.Qualificacao;
+import com.ferasweb.curriculoonline.model.enumerated.EnumEstadoCivil;
 import com.ferasweb.curriculoonline.model.enumerated.EnumTipoFormacao;
 import com.ferasweb.curriculoonline.model.enumerated.EnumTipoHabilitacao;
 import com.ferasweb.curriculoonline.utils.JsfUtil;
@@ -53,6 +54,7 @@ public class PerfilController extends EntityController<Perfil> implements Serial
     private LoginController login;
     private List<EnumTipoFormacao> listaTipoFormacao;
     private List<EnumTipoHabilitacao> listaTipoHabilitacao;
+    private List<EnumEstadoCivil> listaEstadoCivil;
 
     @PostConstruct
     public void init() {
@@ -69,6 +71,11 @@ public class PerfilController extends EntityController<Perfil> implements Serial
         getListaTipoHabilitacao().add(EnumTipoHabilitacao.E);
         getListaTipoHabilitacao().add(EnumTipoHabilitacao.ACC);
         getListaTipoHabilitacao().add(EnumTipoHabilitacao.MOTOR_CASA);
+        getListaEstadoCivil().add(EnumEstadoCivil.SOLTEIRO);
+        getListaEstadoCivil().add(EnumEstadoCivil.CASADO);
+        getListaEstadoCivil().add(EnumEstadoCivil.DIVORCIADO);
+        getListaEstadoCivil().add(EnumEstadoCivil.UNIAO_ESTAVEL);
+        getListaEstadoCivil().add(EnumEstadoCivil.VIUVO);
     }
 
     public void addExperiencia() {
@@ -196,6 +203,19 @@ public class PerfilController extends EntityController<Perfil> implements Serial
     public void setListaTipoFormacao(List<EnumTipoFormacao> listaTipoFormacao) {
         this.listaTipoFormacao = listaTipoFormacao;
     }
+
+    public List<EnumEstadoCivil> getListaEstadoCivil() {
+        if(listaEstadoCivil == null){
+            listaEstadoCivil = new ArrayList<>();
+        }
+        return listaEstadoCivil;
+    }
+
+    public void setListaEstadoCivil(List<EnumEstadoCivil> listaEstadoCivil) {
+        this.listaEstadoCivil = listaEstadoCivil;
+    }
+    
+    
 
     @Override
     protected Perfil getNewEntity() {
