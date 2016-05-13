@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <p:dialog widgetVar="photoCam" modal="true">
+        <h:form id="frmCam">
+                <h:panelGrid columns="3" cellpadding="5">
+                    <p:photoCam widgetVar="pc" listener="#{photoCamView.oncapture}" />
+                    <p:commandButton  value="Capture" onclick="PF('pc').capture()" update="@form" />
+                    <p:graphicImage id="photo" value="/imagens/#{photoCamView.filename}.jpeg" height="130" width="215"  cache="false"/>
+                </h:panelGrid>
+            </h:form>
+    </p:dialog>
+</html>

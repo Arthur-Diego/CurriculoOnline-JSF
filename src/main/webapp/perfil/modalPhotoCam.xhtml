@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                >
+    <h:form>  
+        <p:dialog widgetVar="photoCam2" closable="false" resizable="false" modal='true'  height="450" width="750">
+            <p:growl id="growlMensagensId"/>
+            <h:panelGrid columns="2">                
+                <p:panel id="panelFotoId" header="Foto" style="width: 360px;height: 300px;">
+                    <p:imageCropper  value="#{photoController.imagemRecortada}" 
+                                     initialCoords="225,75,300,125" id="imageCropperFotoId"
+                                     rendered="#{photoController.exibeImagemCapturada}"
+                                     image="/resources/images/tmp/#{photoController.foto}.png"/>
+                </p:panel>
+                <p:panel id="panelFotoRecortadaId" header="Foto Recortada" style="width: 360px;height: 300px;">
+                    <p:graphicImage name="/images/tmp/#{photoController.fotoRecortada}.png" cache="false" rendered="#{not empty photoController.fotoRecortada}"/>
+                </p:panel>        
+                <h:column>
+                    <p:commandLink id="webcamId" onclick="PF('dialogCamera').show();">
+                        <p:graphicImage library="images" name="webcam.png" style="border: none;"/>
+                    </p:commandLink>                
+                    <p:commandLink id="recortarId" action="#{photoController.recortar()}" 
+                                   process="@this imageCropperFotoId" update="growlMensagensId panelFotoRecortadaId" style="margin-left: 10px;" disabled="#{not photoController.exibeImagemCapturada}">
+                        <p:graphicImage library="images" name="tesoura.png" style="border: none;"/>
+                    </p:commandLink>   
+                    <p:fileUpload  mode="simple" skinSimple="true">
+                        <p:graphicImage library="images" name="camera.png" style="border: none;"/>
+                    </p:fileUpload>
+                </h:column>
+            </h:panelGrid>
+            <p:dialog widgetVar="dialogCamera" resizable="false" header="Foto" draggable="true" width="360" height="300">                
+                <h:panelGrid>
+                    <p:photoCam widgetVar="photoCam" update="growlMensagensId panelFotoId recortarId" listener="#{photoController.oncapture}" />            
+                    <h:panelGrid columns="2">
+                        <p:commandButton value="Capturar" type="button" onclick="PF('photoCam').capture();"/>                                               
+                        <p:commandButton value="Fechar" type="button" onclick="PF('dialogCamera').hide();"/>                                               
+                    </h:panelGrid>
+                </h:panelGrid>
+            </p:dialog>
+            <p:ajaxStatus onstart="PF('dialogAguarde').show()" oncomplete="PF('dialogAguarde').hide();"/>
+            <p:dialog widgetVar="dialogAguarde" showHeader="false" resizable="false" closable="false">
+                Aguarde...
+            </p:dialog>
+            <p:tooltip for="webcamId" value="Exibir Webcam"/>
+            <p:tooltip for="recortarId" value="Recortar Imagem"/>
+        </p:dialog>
+    </h:form>
+</ui:composition>
+
