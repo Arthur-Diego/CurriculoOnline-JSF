@@ -5,11 +5,8 @@
 package com.ferasweb.curriculoonline.controller.images;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -19,7 +16,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 import org.primefaces.event.CaptureEvent;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.CroppedImage;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -27,7 +26,7 @@ import org.primefaces.model.CroppedImage;
  */
 @Named
 @ViewScoped
-public class PhotoController {
+public class PhotoController implements Serializable{
 
     private CroppedImage imagemRecortada;
     private String foto;
@@ -38,6 +37,9 @@ public class PhotoController {
     private ServletContext servletContext;
     @Inject
     private ExternalContext externalContext;
+    private UploadedFile file;
+    private byte[] img;
+    private boolean controlButtonSave;
 
     public String getArquivoFoto() {
         return arquivoFoto;
@@ -92,45 +94,87 @@ public class PhotoController {
         return String.valueOf(i);
     }
 
+    public boolean isControlButtonSave() {
+        return controlButtonSave;
+    }
+
+    public void setControlButtonSave(boolean controlButtonSave) {
+        this.controlButtonSave = controlButtonSave;
+    }
+
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+
+    public byte[] getImg() {
+        return img;
+    }
+
+    public void setImg(byte[] img) {
+        this.img = img;
+    }
     public String getRealPath() {
-        String path = externalContext.getRealPath("/resources/images/tmp/"+foto+".jpeg");
+        String path = externalContext.getRealPath("/resources/images/tmp/" + foto + ".jpeg");
         return path;
     }
 
-    private void criaArquivo(String arquivo, byte[] dados) {
+    private void criaArquivo(String arquivo, byte[] dados) throws IOException {
         FileImageOutputStream imageOutput;
-        try {
-            imageOutput = new FileImageOutputStream(new File(arquivo));
-            imageOutput.write(dados, 0, dados.length);
-            imageOutput.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(PhotoController.class.getName()).log(Level.SEVERE, null, ex);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Caminho não encontrado!", "Erro"));
-        } catch (IOException ex) {
-            Logger.getLogger(PhotoController.class.getName()).log(Level.SEVERE, null, ex);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao criar arquivo!", "Erro"));
-        }
+      
+        imageOutput = new FileImageOutputStream(new File(arquivo));
+        imageOutput.write(dados, 0, dados.length);
+        imageOutput.close();
+        img = dados;
     }
 
     public void recortar() {
         verificaExistenciaArquivo(arquivoFotoRecortada);
-        fotoRecortada = "fotoRecortada" + getNumeroRandomico();
+        fotoRecortada = "fotoRecortada" + getNumeroRandomico() + ".png";
 
         arquivoFotoRecortada = externalContext.getRealPath("") + File.separator + "resources"
-                + File.separator + "images" + File.separator + "tmp" + File.separator + fotoRecortada + ".png";
-        // servletContext.getRealPath(File.separator + "imagens" + File.separator + "tmp" + File.separator + fotoRecortada);
-        criaArquivo(arquivoFotoRecortada, imagemRecortada.getBytes());
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Foto RECORTADA com sucesso!", "Informação"));
+                + File.separator + "images" + File.separator + "tmp" + File.separator + fotoRecortada;
+        try {
+            criaArquivo(arquivoFotoRecortada, imagemRecortada.getBytes());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Foto RECORTADA com sucesso!", "Informação"));
+            controlButtonSave = true;
+        } catch (IOException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "Error"));
+        }
     }
 
     public void oncapture(CaptureEvent captureEvent) {
+        controlButtonSave = false;
         verificaExistenciaArquivo(arquivoFoto);
-        foto = "foto" + getNumeroRandomico();
+        foto = "foto" + getNumeroRandomico() + ".png";
         arquivoFoto = externalContext.getRealPath("") + File.separator + "resources"
-                + File.separator + "images" + File.separator + "tmp" + File.separator + foto + ".png";
-        criaArquivo(arquivoFoto, captureEvent.getData());
-        exibeImagemCapturada = true;
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Foto CAPTURADA com sucesso!", "Informação"));
+                + File.separator + "images" + File.separator + "tmp" + File.separator + foto;
+        try {
+            criaArquivo(arquivoFoto, captureEvent.getData());
+            exibeImagemCapturada = true;
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Foto CAPTURADA com sucesso!", "Informação"));
+        } catch (IOException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "Error"));
+        }
+    }
+
+    public void uploadImagem(FileUploadEvent event) {
+        controlButtonSave = false;
+        verificaExistenciaArquivo(arquivoFoto);
+        foto = event.getFile().getFileName();
+        arquivoFoto = externalContext.getRealPath("") + File.separator + "resources"
+                + File.separator + "images" + File.separator + "tmp" + File.separator + foto;
+        try {
+            criaArquivo(arquivoFoto, event.getFile().getContents());
+            exibeImagemCapturada = true;
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Foto Adcionada com sucesso!", "Informação"));
+        } catch (IOException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "Error"));
+        }
+
     }
 
     private void verificaExistenciaArquivo(String arquivo) {
@@ -144,6 +188,5 @@ public class PhotoController {
 
     public PhotoController() {
         exibeImagemCapturada = false;
-      //  servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
     }
 }

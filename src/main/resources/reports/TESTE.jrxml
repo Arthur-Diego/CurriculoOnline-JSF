@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1c784662-da41-448f-8b6f-cf866580cd1a">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="42"/>
+	<property name="ireport.y" value="23"/>
 	<parameter name="nome" class="java.lang.String"/>
 	<parameter name="idade" class="java.lang.String"/>
 	<parameter name="telefone" class="java.lang.String"/>
@@ -23,9 +23,60 @@
 		<defaultValueExpression><![CDATA["D:\\NetBeansProject\\curriculoonline2\\src\\main\\resources\\reports\\"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[]]>
+		<![CDATA[select * from Conhecimento c 
+inner join Perfil p 
+on p.Perfil_Cod = c.Perfil_Cod
+where p.Perfil_Cod = 21 and c.Conhecimento_Cod = $P{conhecimento_cod}]]>
 	</queryString>
 	<field name="Conhecimento_Cod" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Conhecimento_Objetivo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Perfil_Cod" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Perfil_Email" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Perfil_Estado_Civil" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Perfil_Foto" class="java.lang.Object">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Perfil_Idade" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Perfil_Nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Perfil_Telefone" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Perfil_Tipo_Habilit" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Perfil_Endereco_CEP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Perfil_Endereco_Bairro" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Perfil_Endereco_Cidade" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Perfil_Endereco_Estado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Perfil_Endereco_Numero" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Perfil_Endereco_Rua" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Login_Cod" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
@@ -34,57 +85,71 @@
 	<title>
 		<band height="215" splitType="Stretch">
 			<textField>
-				<reportElement x="18" y="10" width="100" height="20" uuid="55966027-b93f-4778-9dc5-cf6a03243531"/>
+				<reportElement x="18" y="10" width="412" height="25" uuid="55966027-b93f-4778-9dc5-cf6a03243531"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{nome}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="18" y="30" width="100" height="20" uuid="3957a5b7-ab9f-46d8-8cfd-9c2fc0779b46"/>
+				<reportElement x="18" y="50" width="100" height="20" uuid="3957a5b7-ab9f-46d8-8cfd-9c2fc0779b46"/>
 				<textFieldExpression><![CDATA[$P{idade}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="18" y="50" width="100" height="20" uuid="4370b1ed-ef81-4b14-9ec2-c984e54045cc"/>
+				<reportElement x="18" y="70" width="100" height="20" uuid="4370b1ed-ef81-4b14-9ec2-c984e54045cc"/>
 				<textFieldExpression><![CDATA[$P{telefone}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="18" y="70" width="100" height="20" uuid="872888b2-6b9c-4748-b2b0-6825845a730c"/>
+				<reportElement x="18" y="90" width="100" height="20" uuid="872888b2-6b9c-4748-b2b0-6825845a730c"/>
 				<textFieldExpression><![CDATA[$P{email}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="18" y="90" width="100" height="20" uuid="dfe6ae47-1cc8-4e0b-a6bc-4cce337c53ba"/>
+				<reportElement x="18" y="110" width="100" height="20" uuid="dfe6ae47-1cc8-4e0b-a6bc-4cce337c53ba"/>
 				<textFieldExpression><![CDATA[$P{estadoCivil}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="18" y="110" width="100" height="20" uuid="bccbd40c-3fbd-4e5a-a848-3fa28ccc1de1"/>
+				<reportElement x="18" y="130" width="100" height="20" uuid="bccbd40c-3fbd-4e5a-a848-3fa28ccc1de1"/>
 				<textFieldExpression><![CDATA[$P{habilitacao}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="18" width="100" height="20" uuid="4ab603ed-5992-4ea6-a667-0601e8843aae"/>
+				<reportElement x="130" y="50" width="100" height="20" uuid="4ab603ed-5992-4ea6-a667-0601e8843aae"/>
 				<textFieldExpression><![CDATA[$P{cep}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="38" width="100" height="20" uuid="a9d6e187-dfec-48b2-89ad-7af51d4e61b6"/>
+				<reportElement x="130" y="70" width="100" height="20" uuid="a9d6e187-dfec-48b2-89ad-7af51d4e61b6"/>
 				<textFieldExpression><![CDATA[$P{uf}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="58" width="100" height="20" uuid="9e38fb49-0a4f-4e14-a2c5-1be581c62f26"/>
+				<reportElement x="130" y="90" width="100" height="20" uuid="9e38fb49-0a4f-4e14-a2c5-1be581c62f26"/>
 				<textFieldExpression><![CDATA[$P{cidade}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="78" width="100" height="20" uuid="12765439-88da-4c21-9226-cd3e9373db7c"/>
+				<reportElement x="130" y="110" width="100" height="20" uuid="12765439-88da-4c21-9226-cd3e9373db7c"/>
 				<textFieldExpression><![CDATA[$P{bairro}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="98" width="100" height="20" uuid="fe87c1e6-0d6c-4bbd-ad48-925f5868d118"/>
+				<reportElement x="130" y="130" width="100" height="20" uuid="fe87c1e6-0d6c-4bbd-ad48-925f5868d118"/>
 				<textFieldExpression><![CDATA[$P{rua}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="118" width="100" height="20" uuid="ebb3a204-2b52-4508-917c-07291f73b0b3"/>
+				<reportElement x="130" y="150" width="100" height="20" uuid="ebb3a204-2b52-4508-917c-07291f73b0b3"/>
 				<textFieldExpression><![CDATA[$P{numero}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="18" y="178" width="493" height="20" uuid="e23e3714-7313-487c-8b2e-29beaf162ec4"/>
+				<reportElement x="0" y="195" width="493" height="20" uuid="e23e3714-7313-487c-8b2e-29beaf162ec4"/>
 				<textFieldExpression><![CDATA[$P{objetivo}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="443" y="10" width="94" height="100" uuid="2c76eef7-70be-4e54-9a05-b75c77dce995"/>
+				<imageExpression><![CDATA[new ByteArrayInputStream((byte[])$F{Perfil_Foto})]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="0" y="194" width="555" height="1" uuid="d24e77ab-f744-4479-ab73-59eb27c2835c"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="175" width="100" height="20" uuid="552b5f1c-fbbc-496a-b198-38ab91567a8a"/>
+				<text><![CDATA[OBJETIVO]]></text>
+			</staticText>
 		</band>
 	</title>
 	<detail>
@@ -98,8 +163,37 @@
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "TESTE_FORMACAO.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
+		<band height="39">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="39" uuid="b45c4c5b-713d-4370-9d97-2e32ff835749"/>
+				<subreportParameter name="Conhecimento_Cod">
+					<subreportParameterExpression><![CDATA[$F{Conhecimento_Cod}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "TESTE_Experiencia2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="38">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="38" uuid="4e7ebc3b-1667-4d2c-82a4-61db2cf124ed"/>
+				<subreportParameter name="Conhecimento_Cod">
+					<subreportParameterExpression><![CDATA[$F{Conhecimento_Cod}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "TESTE_Qualificacao2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
 	</detail>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="29" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="29" uuid="44bdfc09-945c-4a38-ba5a-8a182d74f2a8"/>
+				<subreportParameter name="Conhecimento_Cod">
+					<subreportParameterExpression><![CDATA[$F{Conhecimento_Cod}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "TESTE_InformacaoAdicional2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
 	</summary>
 </jasperReport>

@@ -4,35 +4,58 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 >
-    <h:form>  
-        <p:dialog widgetVar="photoCam2" closable="false" resizable="false" modal='true'  height="450" width="750">
-            <p:growl id="growlMensagensId"/>
+    <h:form enctype="multipart/form-data">  
+        <p:dialog header="Foto"  widgetVar="photoCam2" closable="true" resizable="false" modal='true'  height="450" width="780">
+            <p:growl id="growlMensagensId" showDetail="false" showSummary="true" autoUpdate="true"/>
+            <p:panel header="Escolha imagem: ">
+                <p:fileUpload 
+                    label="Escolha"  
+                    cancelLabel="Cancelar" 
+                    update="@this panelFotoId recortarId btnSalvarFoto" 
+                    mode="advanced" 
+                    value="#{photoController.file}" 
+                    fileUploadListener="#{photoController.uploadImagem}" 
+                    skinSimple="true"
+                    fileLimit="1"
+                    sizeLimit="500000"
+                    auto="true"
+                    invalidSizeMessage="#{msg.ultrapassaTamanho}"
+                    fileLimitMessage="#{msg.ultrapassaLimit}"
+                    invalidFileMessage="#{msg.arquivoInvalido}"
+                    allowTypes="/(\.|\/)(gif|jpe?g|png)$/">
+
+                </p:fileUpload>
+            </p:panel>
             <h:panelGrid columns="2">                
                 <p:panel id="panelFotoId" header="Foto" style="width: 360px;height: 300px;">
-                    <p:imageCropper  value="#{photoController.imagemRecortada}" 
+                    <p:imageCropper  boxWidth="320" 
+                                     boxHeight="250"
+                                     minSize="100,120" maxSize="135,155"
+                                     value="#{photoController.imagemRecortada}" 
                                      initialCoords="225,75,300,125" id="imageCropperFotoId"
                                      rendered="#{photoController.exibeImagemCapturada}"
-                                     image="/resources/images/tmp/#{photoController.foto}.png"/>
+                                     image="/resources/images/tmp/#{photoController.foto}"
+                                     />
                 </p:panel>
                 <p:panel id="panelFotoRecortadaId" header="Foto Recortada" style="width: 360px;height: 300px;">
-                    <p:graphicImage name="/images/tmp/#{photoController.fotoRecortada}.png" cache="false" rendered="#{not empty photoController.fotoRecortada}"/>
+                    <p:graphicImage  name="/images/tmp/#{photoController.fotoRecortada}" cache="false" rendered="#{not empty photoController.fotoRecortada}"/>
                 </p:panel>        
                 <h:column>
                     <p:commandLink id="webcamId" onclick="PF('dialogCamera').show();">
                         <p:graphicImage library="images" name="webcam.png" style="border: none;"/>
                     </p:commandLink>                
                     <p:commandLink id="recortarId" action="#{photoController.recortar()}" 
-                                   process="@this imageCropperFotoId" update="growlMensagensId panelFotoRecortadaId" style="margin-left: 10px;" disabled="#{not photoController.exibeImagemCapturada}">
+                                   process="@this imageCropperFotoId" update="growlMensagensId panelFotoRecortadaId btnSalvarFoto" style="margin-left: 10px;" disabled="#{not photoController.exibeImagemCapturada}">
                         <p:graphicImage library="images" name="tesoura.png" style="border: none;"/>
                     </p:commandLink>   
-                    <p:fileUpload  mode="simple" skinSimple="true">
-                        <p:graphicImage library="images" name="camera.png" style="border: none;"/>
-                    </p:fileUpload>
+                    <p:commandButton id="btnSalvarFoto" update=":frmPerfil:panelFotoRecortadaIdPerfil" value="Salvar" disabled="#{!photoController.controlButtonSave}">
+                        <f:setPropertyActionListener target="#{perfilController.current.foto}" value="#{photoController.img}"/>
+                    </p:commandButton> 
                 </h:column>
             </h:panelGrid>
             <p:dialog widgetVar="dialogCamera" resizable="false" header="Foto" draggable="true" width="360" height="300">                
                 <h:panelGrid>
-                    <p:photoCam widgetVar="photoCam" update="growlMensagensId panelFotoId recortarId" listener="#{photoController.oncapture}" />            
+                    <p:photoCam widgetVar="photoCam" update="growlMensagensId panelFotoId recortarId btnSalvarFoto" listener="#{photoController.oncapture}" />            
                     <h:panelGrid columns="2">
                         <p:commandButton value="Capturar" type="button" onclick="PF('photoCam').capture();"/>                                               
                         <p:commandButton value="Fechar" type="button" onclick="PF('dialogCamera').hide();"/>                                               

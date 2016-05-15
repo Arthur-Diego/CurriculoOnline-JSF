@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
@@ -7,30 +8,33 @@
       >
     <h:head>
         <title>Curriculum</title>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"/>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<!--        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous"/>-->
+            <h:outputStylesheet library="primefaces-bootstrap" name="custom.css"/>
+            <style>
+                /* Remove the navbar's default rounded borders and increase the bottom margin */ 
+                .navbar {
+                    margin-bottom: 50px;
+                    border-radius: 0;
+                }
 
-        <style>
-            /* Remove the navbar's default rounded borders and increase the bottom margin */ 
-            .navbar {
-                margin-bottom: 50px;
-                border-radius: 0;
-            }
+                /* Remove the jumbotron's default bottom margin */ 
+                .jumbotron {
+                    margin-bottom: 0;
+                }
 
-            /* Remove the jumbotron's default bottom margin */ 
-            .jumbotron {
-                margin-bottom: 0;
-            }
-
-            /* Add a gray background color and some padding to the footer */
-            footer {
-                background-color: #f2f2f2;
-                padding: 25px;
-            }
-        </style>
-        <ui:insert name="cep">
-            <h:outputScript library="js" name="js.js"/>
-        </ui:insert>
+                /* Add a gray background color and some padding to the footer */
+                footer {
+                    background-color: #f2f2f2;
+                    padding: 25px;
+                }
+            </style>
+            <ui:insert name="cep">
+                <h:outputScript library="js" name="js.js"/>
+            </ui:insert>
     </h:head>
     <h:body>
         <p:growl globalOnly="false" showDetail="true" showSummary="false" life="6000" autoUpdate="true" />
@@ -148,5 +152,6 @@
             </form>
         </footer>
 
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     </h:body>
 </html>

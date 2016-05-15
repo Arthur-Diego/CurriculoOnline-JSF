@@ -31,6 +31,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -38,7 +40,7 @@ import javax.inject.Named;
  */
 @Named
 @ViewScoped
-public class PerfilController extends EntityController<Perfil> implements Serializable{
+public class PerfilController extends EntityController<Perfil> implements Serializable {
 
     private Perfil current;
     private Conhecimento conhecimento;
@@ -55,6 +57,8 @@ public class PerfilController extends EntityController<Perfil> implements Serial
     private List<EnumTipoFormacao> listaTipoFormacao;
     private List<EnumTipoHabilitacao> listaTipoHabilitacao;
     private List<EnumEstadoCivil> listaEstadoCivil;
+
+    private UploadedFile file;
 
     @PostConstruct
     public void init() {
@@ -78,28 +82,8 @@ public class PerfilController extends EntityController<Perfil> implements Serial
         getListaEstadoCivil().add(EnumEstadoCivil.VIUVO);
     }
 
-    public void addExperiencia() {
-
-        listaExperiencia.add(new Experiencia());
-    }
-
-    public void addFormacao() {
-
-        listaFormacao.add(new Formacao());
-    }
-
-    public void addQualificacao() {
-
-        listaQualificacao.add(new Qualificacao());
-    }
-
-    public void addInformacaoAdicional() {
-
-        listaInformacaoAdicional.add(new InformacaoAdicional());
-    }
-
     public Conhecimento getConhecimento() {
-        if(conhecimento == null){
+        if (conhecimento == null) {
             conhecimento = new Conhecimento();
         }
         return conhecimento;
@@ -179,19 +163,6 @@ public class PerfilController extends EntityController<Perfil> implements Serial
 
         this.current = current;
     }
-    
-    public void fillConhecimento(){
-        conhecimento.setExperiencia(getListaExperiencia());
-        conhecimento.setFormacao(getListaFormacao());
-        conhecimento.setInformacao(getListaInformacaoAdicional());
-        conhecimento.setQualificacao(getListaQualificacao());
-        conhecimento.setPerfil(current);
-    }
-
-    @Override
-    protected void setEntity(Perfil t) {
-        current = t;
-    }
 
     public List<EnumTipoFormacao> getListaTipoFormacao() {
         if (listaTipoFormacao == null) {
@@ -205,7 +176,7 @@ public class PerfilController extends EntityController<Perfil> implements Serial
     }
 
     public List<EnumEstadoCivil> getListaEstadoCivil() {
-        if(listaEstadoCivil == null){
+        if (listaEstadoCivil == null) {
             listaEstadoCivil = new ArrayList<>();
         }
         return listaEstadoCivil;
@@ -214,8 +185,77 @@ public class PerfilController extends EntityController<Perfil> implements Serial
     public void setListaEstadoCivil(List<EnumEstadoCivil> listaEstadoCivil) {
         this.listaEstadoCivil = listaEstadoCivil;
     }
-    
-    
+
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+
+    /**
+     * *********************************** MÉTODOS CONTROLLER
+     * ***********************************
+     */
+    public void uploadImagem(FileUploadEvent event) {
+        byte[] img = event.getFile().getContents();
+        current.setFoto(img);
+    }
+
+    public void fillConhecimento() {
+        conhecimento.setExperiencia(getListaExperiencia());
+        conhecimento.setFormacao(getListaFormacao());
+        conhecimento.setInformacao(getListaInformacaoAdicional());
+        conhecimento.setQualificacao(getListaQualificacao());
+        conhecimento.setPerfil(current);
+    }
+
+    public void addExperiencia() {
+
+        listaExperiencia.add(new Experiencia());
+    }
+
+    public void addFormacao() {
+
+        listaFormacao.add(new Formacao());
+    }
+
+    public void addQualificacao() {
+
+        listaQualificacao.add(new Qualificacao());
+    }
+
+    public void addInformacaoAdicional() {
+
+        listaInformacaoAdicional.add(new InformacaoAdicional());
+    }
+
+    public String salvarPerfil() {
+        try {
+            fillConhecimento();
+            current.setConhecimento(getConhecimento());
+            current.setLogin(login.usuario().getUsuario());
+            perfilDao.create(current);
+        } catch (EntityException ex) {
+            Logger.getLogger(PerfilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return JsfUtil.MANTEM;
+    }
+
+    /**
+     * *********************************** MÉTODOS CONTROLLER
+     * ***********************************
+     */
+
+    /**
+     * *********************************** MÉTODOS SOBSCRITOS E IMPLEMENTADOS
+     * ***********************************
+     */
+    @Override
+    protected void setEntity(Perfil t) {
+        current = t;
+    }
 
     @Override
     protected Perfil getNewEntity() {
@@ -229,14 +269,7 @@ public class PerfilController extends EntityController<Perfil> implements Serial
 
     @Override
     protected String create() {
-        try {
-            fillConhecimento();
-            current.setConhecimento(getConhecimento());
-            current.setLogin(login.usuario().getUsuario());
-            perfilDao.create(current);
-        } catch (EntityException ex) {
-            Logger.getLogger(PerfilController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
         return JsfUtil.MANTEM;
     }
 
@@ -250,4 +283,8 @@ public class PerfilController extends EntityController<Perfil> implements Serial
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * *********************************** MÉTODOS SOBSCRITOS E IMPLEMENTADOS
+     * ***********************************
+     */
 }

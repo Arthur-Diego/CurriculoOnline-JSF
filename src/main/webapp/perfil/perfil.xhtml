@@ -18,6 +18,13 @@ and open the template in the editor.
             <h:form id="frmPerfil">
                 <h3 style="margin-top:0">Cadastro perfil</h3>
                 <p:panel footer="#{loginController.nomeUsuario}" id="panelMain">
+                    <h3>Escolha foto</h3>
+                    <p:separator/>
+                     
+                    <p:panel id="panelFotoRecortadaIdPerfil" header="Foto Recortada" style="width: 175px;height: 220px;">
+                        <p:graphicImage  name="/images/tmp/#{photoController.fotoRecortada}" cache="false" rendered="#{not empty photoController.fotoRecortada}"/>
+                    </p:panel>  
+                    <h:commandButton type="button" value="Inserir foto" onclick="PF('photoCam2').show()" id="btnPhoto" immediate="true" />
                     <h3>Informações pessoais</h3>
                     <p:separator/>
                     <h:panelGrid columns="2" style="width: 100%">
@@ -27,7 +34,6 @@ and open the template in the editor.
                                     <label class="col-md-2 control-label" for="textinput">#{msg.nome}</label>  
                                     <div class="col-md-8">
                                         <p:inputText label="#{msg.nome}" required="true" value="#{perfilController.current.nome}"  placeholder="Nome completo" styleClass="form-control input-md">
-                                            <p:ajax event="blur" process="@this" listener="#{perfilController.prepareCreate()}"/>
                                         </p:inputText>
                                     </div>
                                 </div>
@@ -54,9 +60,9 @@ and open the template in the editor.
                                 <div class="form-group">
                                     <label class="col-md-2 control-label" for="textinput">#{msg.estadoCivil}</label>  
                                     <div class="col-md-4">
-                                        <h:selectOneMenu required="true" label="#{msg.estadoCivil}" styleClass="form-control input-md" value="#{perfilController.current.estadoCivil}">
+                                        <p:selectOneMenu  label="#{msg.estadoCivil}" value="#{perfilController.current.estadoCivil}">
                                             <f:selectItems value="#{perfilController.listaEstadoCivil}" var="tipo" itemValue="#{tipo}" itemLabel="#{tipo.label}"/>
-                                        </h:selectOneMenu>
+                                        </p:selectOneMenu>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -254,12 +260,8 @@ and open the template in the editor.
                     </h:panelGroup>
                 </p:panel> 
                 <div class="col-md-8">
-                    <h:commandButton value="#{msg.salvar}" id="btnSalvar" >
-                        <f:ajax execute="@all" listener="#{perfilController.createOrEdit()}"/>
-                    </h:commandButton>
-
+                    <p:commandButton value="#{msg.salvar}" id="btnSalvar" action="#{perfilController.salvarPerfil()}" process="@all" partialSubmit="false"/>
                 </div>
-                <h:commandButton type="button" value="Photo" onclick="PF('photoCam2').show()" id="btnPhoto" immediate="true" />
             </h:form>
             <ui:include src="/perfil/modalPhotoCam.xhtml" />
         </ui:define>

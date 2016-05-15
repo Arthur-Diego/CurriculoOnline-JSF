@@ -16,6 +16,13 @@
 
     <dependencies>
         
+          <!-- JASPER REPORT -->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>5.5.0</version>
+        </dependency>
+        
         <!-- Log4J -->    	
         <dependency>
             <groupId>log4j</groupId>
@@ -33,12 +40,6 @@
         </dependency>
         <dependency>
             <groupId>javax</groupId>
-            <artifactId>javaee-web-api</artifactId>
-            <version>7.0</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
             <scope>provided</scope>
@@ -51,6 +52,7 @@
             <scope>provided</scope>
         </dependency>
         
+        <!-- hibernate e jPÀ -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
