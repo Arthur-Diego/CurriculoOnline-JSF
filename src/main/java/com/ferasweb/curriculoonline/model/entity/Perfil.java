@@ -8,6 +8,8 @@ package com.ferasweb.curriculoonline.model.entity;
 import com.ferasweb.curriculoonline.model.commons.EntityInterface;
 import com.ferasweb.curriculoonline.model.enumerated.EnumEstadoCivil;
 import com.ferasweb.curriculoonline.model.enumerated.EnumTipoHabilitacao;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
 import javax.persistence.CascadeType;
@@ -24,6 +26,8 @@ import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -31,58 +35,60 @@ import javax.persistence.TableGenerator;
  */
 @Entity
 @Table(name = "Perfil")
-public class Perfil implements EntityInterface<Perfil>{
-    
-    @TableGenerator(name="Perfil_Generator",
-            table="GENERATED_KEYS",
-            pkColumnName="PK_COLUMN",
-            valueColumnName="VALUE_COLUMN",
-            pkColumnValue="Perfil_ID",
-            allocationSize=10
+public class Perfil implements EntityInterface<Perfil> {
+
+    @TableGenerator(name = "Perfil_Generator",
+            table = "GENERATED_KEYS",
+            pkColumnName = "PK_COLUMN",
+            valueColumnName = "VALUE_COLUMN",
+            pkColumnValue = "Perfil_ID",
+            allocationSize = 10
     )
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "Perfil_Generator")
     @Column(name = "Perfil_Cod")
     private Integer perfilCod;
-    
+
     @OneToOne(mappedBy = "perfil", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private Conhecimento conhecimento;
-    
+
     @Column(name = "Perfil_Nome", nullable = false, length = 90)
     private String nome;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "Perfil_Estado_Civil", nullable = false)
     private EnumEstadoCivil estadoCivil;
-    
+
     @Column(name = "Perfil_Idade", nullable = false)
     private Integer idade;
-    
+
     @Column(name = "Perfil_Telefone", nullable = false)
     private String telefone;
-    
+
     @Lob
     @Column(name = "Perfil_Foto", columnDefinition = "BLOB")
     private byte[] foto;
-    
+
     @Column(name = "Perfil_Email")
     private String email;
-    
+
     @Enumerated(EnumType.STRING)
     @Column(name = "Perfil_Tipo_Habilit")
     private EnumTipoHabilitacao tipoHabilitacao;
-    
+
     @Embedded
     private Endereco endereco;
-    
+
     @OneToOne(targetEntity = Login.class)
-    @JoinColumn(name = "Login_Cod", nullable = false)
+    @JoinColumn(name = "Login_Cod", nullable = false, unique = true)
     private Login login;
-    
-    public Perfil(){
+
+   
+
+    public Perfil() {
         endereco = new Endereco();
     }
-    
+
     public Conhecimento getConhecimento() {
         return conhecimento;
     }
@@ -170,7 +176,7 @@ public class Perfil implements EntityInterface<Perfil>{
     public void setLogin(Login login) {
         this.login = login;
     }
-    
+
     @Override
     public Serializable getId() {
         return this.getPerfilCod();
@@ -178,7 +184,7 @@ public class Perfil implements EntityInterface<Perfil>{
 
     @Override
     public String getLabel() {
-        return this.getId()+" - "+this.getNome();
+        return this.getId() + " - " + this.getNome();
     }
 
     @Override
@@ -249,6 +255,5 @@ public class Perfil implements EntityInterface<Perfil>{
         }
         return true;
     }
-    
-    
+
 }

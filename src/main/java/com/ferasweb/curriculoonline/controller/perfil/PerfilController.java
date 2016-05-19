@@ -8,14 +8,13 @@ package com.ferasweb.curriculoonline.controller.perfil;
 import com.ferasweb.curriculoonline.controller.commons.EntityController;
 import com.ferasweb.curriculoonline.controller.commons.EntityPagination;
 import com.ferasweb.curriculoonline.controller.login.LoginController;
-import com.ferasweb.curriculoonline.controller.usuario.UsuarioController;
+import com.ferasweb.curriculoonline.controller.template.ReportUm;
 import com.ferasweb.curriculoonline.exception.EntityException;
 import com.ferasweb.curriculoonline.model.dao.PerfilDAO;
 import com.ferasweb.curriculoonline.model.entity.Conhecimento;
 import com.ferasweb.curriculoonline.model.entity.Experiencia;
 import com.ferasweb.curriculoonline.model.entity.Formacao;
 import com.ferasweb.curriculoonline.model.entity.InformacaoAdicional;
-import com.ferasweb.curriculoonline.model.entity.Login;
 import com.ferasweb.curriculoonline.model.entity.Perfil;
 import com.ferasweb.curriculoonline.model.entity.Qualificacao;
 import com.ferasweb.curriculoonline.model.enumerated.EnumEstadoCivil;
@@ -42,6 +41,13 @@ import org.primefaces.model.UploadedFile;
 @ViewScoped
 public class PerfilController extends EntityController<Perfil> implements Serializable {
 
+    @Inject
+    private PerfilDAO perfilDao;
+    @Inject
+    private LoginController login;
+    @Inject
+    private ReportUm curriculoUm;
+
     private Perfil current;
     private Conhecimento conhecimento;
 
@@ -50,10 +56,6 @@ public class PerfilController extends EntityController<Perfil> implements Serial
     private List<Qualificacao> listaQualificacao;
     private List<InformacaoAdicional> listaInformacaoAdicional;
 
-    @Inject
-    private PerfilDAO perfilDao;
-    @Inject
-    private LoginController login;
     private List<EnumTipoFormacao> listaTipoFormacao;
     private List<EnumTipoHabilitacao> listaTipoHabilitacao;
     private List<EnumEstadoCivil> listaEstadoCivil;
@@ -243,11 +245,15 @@ public class PerfilController extends EntityController<Perfil> implements Serial
         return JsfUtil.MANTEM;
     }
 
+    public void generateCurritulo() {
+        current = perfilDao.findPerfilByLogin(login.usuario().getUsuario());
+        curriculoUm.generateCurriculoUm(current);
+    }
+
     /**
      * *********************************** MÉTODOS CONTROLLER
      * ***********************************
      */
-
     /**
      * *********************************** MÉTODOS SOBSCRITOS E IMPLEMENTADOS
      * ***********************************

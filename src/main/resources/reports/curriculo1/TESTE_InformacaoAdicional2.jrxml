@@ -17,12 +17,19 @@ INNER JOIN informacao_adicional i ON i.conhecimento_cod = $P{Conhecimento_Cod}]]
 	<title>
 		<band height="21" splitType="Stretch">
 			<line>
-				<reportElement x="0" y="20" width="555" height="1" uuid="9183dfc9-72de-4e99-bac8-7cd70e8b605a"/>
+				<reportElement x="0" y="20" width="555" height="1" forecolor="#CCCCCC" uuid="9183dfc9-72de-4e99-bac8-7cd70e8b605a"/>
 			</line>
 			<staticText>
-				<reportElement x="0" y="0" width="120" height="20" uuid="c7f914ef-52ba-4247-84e2-715324567056"/>
-				<text><![CDATA[Informações adicionais]]></text>
+				<reportElement x="22" y="1" width="149" height="20" uuid="c7f914ef-52ba-4247-84e2-715324567056"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[INFORMAÇÕES ADICIONAIS]]></text>
 			</staticText>
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="0" width="22" height="20" backcolor="#CCCCCC" uuid="5fe81b2d-316c-471f-b9f3-91a504796ddb"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
 		</band>
 	</title>
 	<detail>

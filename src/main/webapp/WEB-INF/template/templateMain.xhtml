@@ -12,29 +12,29 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"/>
-<!--        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous"/>-->
-            <h:outputStylesheet library="primefaces-bootstrap" name="custom.css"/>
-            <style>
-                /* Remove the navbar's default rounded borders and increase the bottom margin */ 
-                .navbar {
-                    margin-bottom: 50px;
-                    border-radius: 0;
-                }
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous"/>
+        <h:outputStylesheet library="primefaces-bootstrap" name="custom.css"/>
+        <style>
+            /* Remove the navbar's default rounded borders and increase the bottom margin */ 
+            .navbar {
+                margin-bottom: 50px;
+                border-radius: 0;
+            }
 
-                /* Remove the jumbotron's default bottom margin */ 
-                .jumbotron {
-                    margin-bottom: 0;
-                }
+            /* Remove the jumbotron's default bottom margin */ 
+            .jumbotron {
+                margin-bottom: 0;
+            }
 
-                /* Add a gray background color and some padding to the footer */
-                footer {
-                    background-color: #f2f2f2;
-                    padding: 25px;
-                }
-            </style>
-            <ui:insert name="cep">
-                <h:outputScript library="js" name="js.js"/>
-            </ui:insert>
+            /* Add a gray background color and some padding to the footer */
+            footer {
+                background-color: #f2f2f2;
+                padding: 25px;
+            }
+        </style>
+        <ui:insert name="cep">
+            <h:outputScript library="js" name="js.js"/>
+        </ui:insert>
     </h:head>
     <h:body>
         <p:growl globalOnly="false" showDetail="true" showSummary="false" life="6000" autoUpdate="true" />
@@ -62,16 +62,18 @@
                             <li><h:link outcome="perfil">Perfil</h:link></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
+
                             <li><a href="#"><span class="glyphicon glyphicon-user" style="margin-right: 5px;"></span>    Olá #{loginController.nomeUsuario} !</a></li>
+                            <h:panelGroup rendered="#{fotoPerfilController.image != null}"><li><p:graphicImage  cache="false" value="#{fotoPerfilController.image}" styleClass="img-circle"  height="35" width="35" style="margin-top: 6px;"/></li></h:panelGroup>
                             <li><h:commandLink action="#{loginController.logout()}"><span class="glyphicon glyphicon-off"></span> Sair</h:commandLink></li>
                         </ul>
                     </div>
                 </div>
             </nav>
         </h:form>
+        <ui:insert name="content_page_inicial">
+            <div class="container">    
 
-        <div class="container">    
-            <ui:insert name="content_page_inicial">
                 <div class="row">
 
                     <div class="col-sm-4">
@@ -96,8 +98,9 @@
                         </div>
                     </div>
                 </div>
-            </ui:insert>
-        </div><br/>
+
+            </div>
+        </ui:insert>
         <div class="container">  
             <ui:insert name="content_page_inicial">
                 <div class="row">
@@ -139,11 +142,9 @@
                 </div> 
             </ui:insert>
         </div> <br/><br/>
+        <ui:insert name="perfilContent">
 
-
-
-
-
+        </ui:insert>
         <footer class="container-fluid text-center">
             <p>Online Store Copyright</p>  
             <form class="form-inline">Get deals:

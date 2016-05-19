@@ -14,14 +14,16 @@ and open the template in the editor.
     <ui:composition template="/WEB-INF/template/templateMain.xhtml">
         <ui:define name="content_page_inicial">
         </ui:define> 
+        <ui:define name="perfilContent">
+        </ui:define> 
         <ui:define name="content">
             <h:form id="frmPerfil">
                 <h3 style="margin-top:0">Cadastro perfil</h3>
                 <p:panel footer="#{loginController.nomeUsuario}" id="panelMain">
                     <h3>Escolha foto</h3>
                     <p:separator/>
-                     
-                    <p:panel id="panelFotoRecortadaIdPerfil" header="Foto Recortada" style="width: 175px;height: 220px;">
+
+                    <p:panel id="panelFotoRecortadaIdPerfil" header="Foto de perfil" style="width: 175px;height: 220px;">
                         <p:graphicImage  name="/images/tmp/#{photoController.fotoRecortada}" cache="false" rendered="#{not empty photoController.fotoRecortada}"/>
                     </p:panel>  
                     <h:commandButton type="button" value="Inserir foto" onclick="PF('photoCam2').show()" id="btnPhoto" immediate="true" />
@@ -261,6 +263,7 @@ and open the template in the editor.
                 </p:panel> 
                 <div class="col-md-8">
                     <p:commandButton value="#{msg.salvar}" id="btnSalvar" action="#{perfilController.salvarPerfil()}" process="@all" partialSubmit="false"/>
+                    <p:commandButton value="Currículo" id="btnCurriculo" action="#{perfilController.generateCurritulo()}" process="@all" partialSubmit="false" immediate="true" ajax="false"/>
                 </div>
             </h:form>
             <ui:include src="/perfil/modalPhotoCam.xhtml" />

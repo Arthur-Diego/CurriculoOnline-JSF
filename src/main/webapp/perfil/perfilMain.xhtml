@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <ui:composition template="/WEB-INF/template/templateMain.xhtml">
+
+        <ui:define name="content_page_inicial">
+        </ui:define> 
+        <ui:define name="content">
+        </ui:define>
+        <ui:define name="perfilContent">
+            <f:metadata>
+                <f:event type="preRenderView" listener="#{perfilMainController.redirectIfPerfilIsNull()}" />
+            </f:metadata>
+            <h:form style="margin-top: 10px !important;">
+                <div class="container text-center">    
+                    <div class="row">
+                        <div class="col-sm-3 well">
+                            <div class="well">
+                                <p><a href="#">Perfil</a></p>
+                                <p:graphicImage value="#{fotoPerfilController.image}" styleClass="img-circle"  height="110" width="110" />
+
+                            </div>
+                            <h:commandLink value="Alterar foto"></h:commandLink>
+                            <p><a href="#">Editar perfil</a></p>
+                            <p><a href="#">Currículo</a></p>
+                            <p><a href="#">Desativar conta</a></p>
+                        </div>
+                        <div class="col-sm-7">
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="well" style="text-align: left;">
+                                        <h4>Objetivo</h4>
+                                        <p:separator/>
+                                        <p>
+                                            - <h:outputText value="#{perfilMainController.current.conhecimento.objetivo}"/> 
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="well" style="text-align: left;">
+                                        <h4>Formação</h4>
+                                        <p:separator/>
+                                        <p>
+                                            <ui:repeat value="#{perfilMainController.current.conhecimento.formacao}" var="formacao">
+                                                - <h:outputText value="#{formacao.curso} - #{formacao.instituicao} - #{formacao.tipoFormacao.label}"/>
+                                            </ui:repeat>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="well" style="text-align: left;">
+                                        <h4>Experiências</h4>
+                                        <p:separator/>
+                                        <p>
+                                            <ui:repeat value="#{perfilMainController.current.conhecimento.experiencia}" var="experiencia">
+                                                - <h:outputText value="#{experiencia.empresa}"/> - 
+                                                (<h:outputText value="#{experiencia.dataInicio}">
+                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                </h:outputText> - 
+                                                <h:outputText value="#{experiencia.dataFinal}">
+                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                </h:outputText>)
+
+                                                <br/>
+                                                <h:outputText value="#{experiencia.descExperiencia}"/>
+                                            </ui:repeat>  
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="well" style="text-align: left;">
+                                        <h4>Qualificações</h4>
+                                        <p:separator/>
+                                        <p>
+                                            <ui:repeat value="#{perfilMainController.current.conhecimento.qualificacao}" var="qualificacao">
+                                                - <h:outputText value="#{qualificacao.cursoPalestras} - #{qualificacao.cargaHoraria}  - #{qualificacao.anoTerminio} "/><br/>
+                                            </ui:repeat>  
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>    
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="well" style="text-align: left;">
+                                        <h4>Informações adicionais</h4>
+                                        <p:separator/>
+                                        <p>
+                                            <ui:repeat  value="#{perfilMainController.current.conhecimento.informacao}" var="informacao">
+                                                - <h:outputText value="#{informacao.informacao}"/><br/>
+                                            </ui:repeat>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>     
+                        </div>
+                        <div class="col-sm-2 well">
+                            <div class="thumbnail">
+                                <p>Upcoming Events:</p>
+                                <img src="paris.jpg" alt="Paris" width="400" height="300"/>
+                                <p><strong>Paris</strong></p>
+                                <p>Fri. 27 November 2015</p>
+                                <button class="btn btn-primary">Info</button>
+                            </div>      
+                            <div class="well">
+                                <p>ADS</p>
+                            </div>
+                            <div class="well">
+                                <p>ADS</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

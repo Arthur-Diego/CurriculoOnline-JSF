@@ -84,8 +84,16 @@ public class ReportUtil {
             responseStream.close();
 
         } catch (IOException | JRException ex) {
+            System.out.println(ex.getCause());
+            System.out.println(ex.getMessage());
             FacesContext.getCurrentInstance().responseComplete();
         }
+    }
+    
+    public void generateCurriculo(InputStream inputStream,
+            Map parametros,
+            Connection conn){
+        openPDFConnection(inputStream, parametros, conn);
     }
     
     public static Map getParams(){

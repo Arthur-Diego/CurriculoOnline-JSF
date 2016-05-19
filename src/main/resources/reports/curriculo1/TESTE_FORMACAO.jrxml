@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TESTE_FORMACAO" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c3658c94-add1-4c43-83b0-7f1a0ffbc7c4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Conhecimento_Cod" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="IMAGE_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["D:\\NetBeansProject\\curriculoonline2\\src\\main\\resources\\reports\\curriculo1\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select 
+CONCAT(f.formacao_curso, ' - ', f.Formacao_Instituicao, ' - ', f.Formacao_Tipo ) AS 'Formação'
+from conhecimento c 
+INNER JOIN formacao f ON f.conhecimento_cod =
+c.conhecimento_cod 
+where f.conhecimento_cod = $P{Conhecimento_Cod}]]>
+	</queryString>
+	<field name="Formação" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="18" y="10" width="92" height="20" uuid="65eb5658-81b8-440d-a255-c88d90aa9b40"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[FORMAÇÃO]]></text>
+			</staticText>
+			<image>
+				<reportElement x="2" y="15" width="18" height="15" uuid="f473969c-454d-4bed-9a4c-a999cc122b35"/>
+				<imageExpression><![CDATA[$P{IMAGE_DIR}+"certo.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="22" y="10" width="533" height="20" uuid="b2827d47-1ba3-4cfa-8644-ef1fdbbe8e5d"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Formação}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="10" y="16" width="5" height="5" backcolor="#333333" uuid="41f6805c-07b2-4316-9c84-3cc52e800791"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" forecolor="#CCCCCC" uuid="78c02f04-1a07-4b40-a00b-cb627d758c64"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

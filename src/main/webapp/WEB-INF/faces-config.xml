@@ -22,6 +22,11 @@
             <to-view-id>/perfil/perfil.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>perfilMain</from-outcome>
+            <to-view-id>/perfil/perfilMain.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
     
 </faces-config>

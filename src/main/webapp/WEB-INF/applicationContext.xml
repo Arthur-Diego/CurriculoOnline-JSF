@@ -16,7 +16,7 @@
         <intercept-url pattern="/**" access="ROLE_USER"/>
         <form-login 
             login-page="/Login.xhtml"
-            default-target-url="/inicio.xhtml"
+            default-target-url="/perfil/perfilMain.xhtml"
             authentication-failure-url="/Login.xhtml?invalid=true"
         />
     </http>
