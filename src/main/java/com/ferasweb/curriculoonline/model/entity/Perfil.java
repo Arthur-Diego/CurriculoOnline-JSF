@@ -83,7 +83,10 @@ public class Perfil implements EntityInterface<Perfil> {
     @JoinColumn(name = "Login_Cod", nullable = false, unique = true)
     private Login login;
 
-   
+    public Perfil(Conhecimento conhecimento) {
+        this.conhecimento = conhecimento;
+    }
+    
 
     public Perfil() {
         endereco = new Endereco();

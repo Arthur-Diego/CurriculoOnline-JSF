@@ -65,6 +65,17 @@ public class Conhecimento implements EntityInterface<Conhecimento>{
     @JoinColumn(name = "Conhecimento_Cod", nullable = true)
     private List<InformacaoAdicional> informacao;
 
+    public Conhecimento(List<Formacao> formacao, List<Experiencia> experiencia, List<Qualificacao> qualificacao, List<InformacaoAdicional> informacao) {
+        this.formacao = formacao;
+        this.experiencia = experiencia;
+        this.qualificacao = qualificacao;
+        this.informacao = informacao;
+    }
+    
+    public Conhecimento(){
+        
+    }
+    
     public Perfil getPerfil() {
         return perfil;
     }

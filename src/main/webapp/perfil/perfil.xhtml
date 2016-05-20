@@ -24,7 +24,7 @@ and open the template in the editor.
                     <p:separator/>
 
                     <p:panel id="panelFotoRecortadaIdPerfil" header="Foto de perfil" style="width: 175px;height: 220px;">
-                        <p:graphicImage  name="/images/tmp/#{photoController.fotoRecortada}" cache="false" rendered="#{not empty photoController.fotoRecortada}"/>
+                        <p:graphicImage  name="/images/tmp/#{photoController.fotoRecortada}" style="width: 150px;height: 180px;" cache="false" rendered="#{not empty photoController.fotoRecortada}"/>
                     </p:panel>  
                     <h:commandButton type="button" value="Inserir foto" onclick="PF('photoCam2').show()" id="btnPhoto" immediate="true" />
                     <h3>Informações pessoais</h3>
@@ -137,7 +137,7 @@ and open the template in the editor.
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <ui:repeat id="listFormacao" value="#{perfilController.listaFormacao}" var="formacao">
+                                    <ui:repeat id="listFormacao" value="#{perfilController.current.conhecimento.formacao}" var="formacao">
                                         <tr>
                                             <td><h:selectOneMenu styleClass="form-control" value="#{formacao.tipoFormacao}">
                                                     <f:selectItem value="#{null}" itemLabel="Selecione"/>
@@ -171,7 +171,7 @@ and open the template in the editor.
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <ui:repeat id="listQualificacao" value="#{perfilController.listaQualificacao}" var="qualificacao">
+                                    <ui:repeat id="listQualificacao" value="#{perfilController.current.conhecimento.qualificacao}" var="qualificacao">
                                         <tr>
                                             <td><p:inputText style="width: 100%" value="#{qualificacao.cursoPalestras}"/></td>
                                             <td><p:inputText style="width: 100%" value="#{qualificacao.cargaHoraria}"/></td>
@@ -205,7 +205,7 @@ and open the template in the editor.
                                     </tr>
                                 </thead>
                                 <tbody style="width: 100%">
-                                    <ui:repeat value="#{perfilController.listaExperiencia}" var="experiencia">
+                                    <ui:repeat value="#{perfilController.current.conhecimento.experiencia}" var="experiencia">
                                         <tr style="width: 100%">
                                             <td><p:inputText value="#{experiencia.empresa}" style="width: 100%"/></td>
                                             <td><p:calendar value="#{experiencia.dataInicio}" pattern="MM/yyyy" style="width: 100%"/></td>
@@ -245,7 +245,7 @@ and open the template in the editor.
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <ui:repeat value="#{perfilController.listaInformacaoAdicional}" var="infoAdicional">
+                                    <ui:repeat value="#{perfilController.current.conhecimento.informacao}" var="infoAdicional">
                                         <tr>
                                             <td><p:inputText style="width: 100%" value="#{infoAdicional.informacao}"/></td>
                                             <td>

@@ -12,8 +12,10 @@ import com.ferasweb.curriculoonline.model.dao.PerfilDAO;
 import com.ferasweb.curriculoonline.model.entity.Perfil;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -26,8 +28,8 @@ import org.primefaces.model.StreamedContent;
  * @author Andressa
  */
 @Named
-@ViewScoped
-public class PerfilMainController extends EntityController<Perfil> {
+@SessionScoped
+public class PerfilMainController extends EntityController<Perfil> implements Serializable{
 
     private Perfil current;
     @Inject
@@ -43,7 +45,7 @@ public class PerfilMainController extends EntityController<Perfil> {
         System.out.println("to aki redirect");
         if (current.getPerfilCod() == null) {
             try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/curriculoonline2/perfil/perfil.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/curriculoonline/perfil/perfil.xhtml");
                 System.out.println("to aki redirect");
             } catch (IOException ex) {
                 Logger.getLogger(PerfilMainController.class.getName()).log(Level.SEVERE, null, ex);

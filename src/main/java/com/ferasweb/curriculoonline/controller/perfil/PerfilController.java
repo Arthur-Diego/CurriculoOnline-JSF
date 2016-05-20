@@ -47,6 +47,8 @@ public class PerfilController extends EntityController<Perfil> implements Serial
     private LoginController login;
     @Inject
     private ReportUm curriculoUm;
+    @Inject
+    private PerfilMainController perfilMain;
 
     private Perfil current;
     private Conhecimento conhecimento;
@@ -86,7 +88,7 @@ public class PerfilController extends EntityController<Perfil> implements Serial
 
     public Conhecimento getConhecimento() {
         if (conhecimento == null) {
-            conhecimento = new Conhecimento();
+            conhecimento = new Conhecimento(getListaFormacao(), getListaExperiencia(), getListaQualificacao(), getListaInformacaoAdicional());
         }
         return conhecimento;
     }
@@ -156,7 +158,12 @@ public class PerfilController extends EntityController<Perfil> implements Serial
 
     public Perfil getCurrent() {
         if (current == null) {
-            current = getNewEntity();
+            current = new Perfil(getConhecimento());
+            if (perfilMain != null) {
+                if (perfilMain.getCurrent().getPerfilCod() != null) {
+                    current = perfilMain.getCurrent();
+                }
+            }
         }
         return current;
     }
@@ -214,23 +221,25 @@ public class PerfilController extends EntityController<Perfil> implements Serial
     }
 
     public void addExperiencia() {
-
-        listaExperiencia.add(new Experiencia());
+        getListaExperiencia().add(new Experiencia());
+        current.getConhecimento().setExperiencia(listaExperiencia);
     }
 
     public void addFormacao() {
-
-        listaFormacao.add(new Formacao());
+        getListaFormacao().add(new Formacao());
+         current.getConhecimento().setFormacao(listaFormacao);
     }
 
     public void addQualificacao() {
 
-        listaQualificacao.add(new Qualificacao());
+        getListaQualificacao().add(new Qualificacao());
+        current.getConhecimento().setQualificacao(listaQualificacao);
     }
 
     public void addInformacaoAdicional() {
 
         listaInformacaoAdicional.add(new InformacaoAdicional());
+        current.getConhecimento().setQualificacao(listaQualificacao);
     }
 
     public String salvarPerfil() {
@@ -244,6 +253,15 @@ public class PerfilController extends EntityController<Perfil> implements Serial
         }
         return JsfUtil.MANTEM;
     }
+    
+    public String editarPerfil(){
+        try {
+            perfilDao.update(current);
+        } catch (EntityException ex) {
+            Logger.getLogger(PerfilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return JsfUtil.PERFILMAIN;
+    } 
 
     public void generateCurritulo() {
         current = perfilDao.findPerfilByLogin(login.usuario().getUsuario());

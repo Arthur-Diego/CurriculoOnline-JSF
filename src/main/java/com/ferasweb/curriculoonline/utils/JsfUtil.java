@@ -27,6 +27,7 @@ public final class JsfUtil {
      * String que representa o retorno para ficar na mesma página.
      */
     public static final String MANTEM = "";
+     public static final String PERFILMAIN = "perfilMain";
     /**
      * Direciona para /pages/principal.xhtml.<br>
      * <b>Menssagens GROWL são ignoradas.</b>
