@@ -9,6 +9,7 @@ import com.ferasweb.curriculoonline.model.entity.Perfil;
 import com.ferasweb.curriculoonline.utils.ReportUtil;
 import com.ferasweb.curriculoonline.utils.jpa.ConnectionFactory;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +19,7 @@ import javax.inject.Inject;
  *
  * @author Andressa
  */
-public class ReportUm {
+public class ReportUm implements Serializable{
 
     @Inject
     private ReportUtil reportUtil;

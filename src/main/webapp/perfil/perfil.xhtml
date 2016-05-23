@@ -122,7 +122,7 @@ and open the template in the editor.
                     <p:separator/>
                     <h:panelGrid columns="1" style="width: 100%;">
                         <p:outputLabel value="Objetivo"/>
-                        <p:inputTextarea label="#{msg.objetivo}" required="true" style="width: 40%;" value="#{perfilController.conhecimento.objetivo}"/>
+                        <p:inputTextarea label="#{msg.objetivo}" required="true" style="width: 40%;" value="#{perfilController.current.conhecimento.objetivo}"/>
                     </h:panelGrid>
                     <h3>Formação</h3>
                     <p:separator/>
@@ -180,7 +180,7 @@ and open the template in the editor.
                                             </td>
                                             <td>
                                                 <h:commandLink id="btnAddFormacao" styleClass="btn btn-default">
-                                                    <span class="glyphicon glyphicon-plus"></span> Add 
+                                                    <span class="glyphicon glyphicon-plus"></span>
                                                     <f:ajax execute=":frmPerfil:panelQualificacao" render=":frmPerfil:panelQualificacao" listener="#{perfilController.addQualificacao()}"/>
                                                 </h:commandLink>
                                             </td>
@@ -212,7 +212,7 @@ and open the template in the editor.
                                             <td><p:calendar value="#{experiencia.dataFinal}" pattern="MM/yyyy" style="width: 100%"/></td>
                                             <td>
                                                 <h:commandLink id="btnAddFormacao" styleClass="btn btn-default">
-                                                    <span class="glyphicon glyphicon-plus"></span> Add 
+                                                    <span class="glyphicon glyphicon-plus"></span>
                                                     <f:ajax execute=":frmPerfil:panelExperiencia" render=":frmPerfil:panelExperiencia" listener="#{perfilController.addExperiencia()}"/>
                                                 </h:commandLink>
                                             </td>
@@ -250,7 +250,7 @@ and open the template in the editor.
                                             <td><p:inputText style="width: 100%" value="#{infoAdicional.informacao}"/></td>
                                             <td>
                                                 <h:commandLink id="btnAddFormacao" styleClass="btn btn-default">
-                                                    <span class="glyphicon glyphicon-plus"></span> Add 
+                                                    <span class="glyphicon glyphicon-plus"></span>
                                                     <f:ajax execute=":frmPerfil:panelInformacao" render=":frmPerfil:panelInformacao" listener="#{perfilController.addInformacaoAdicional()}"/>
                                                 </h:commandLink>
                                             </td>
@@ -261,10 +261,15 @@ and open the template in the editor.
                         </div>
                     </h:panelGroup>
                 </p:panel> 
-                <div class="col-md-8">
-                    <p:commandButton value="#{msg.salvar}" id="btnSalvar" action="#{perfilController.salvarPerfil()}" process="@all" partialSubmit="false"/>
-                    <p:commandButton value="Currículo" id="btnCurriculo" action="#{perfilController.generateCurritulo()}" process="@all" partialSubmit="false" immediate="true" ajax="false"/>
+                <div class="col-md-12">
+                    <p:commandButton styleClass="form-control btn btn-success" value="#{msg.salvar}" id="btnSalvar" action="#{perfilController.salvarPerfil()}" process="@all" partialSubmit="false"/>
                 </div>
+                <div class="col-md-8">
+                    <p:commandButton value="#{msg.salvar}" id="btnEditar" action="#{perfilController.editarPerfil()}" process="@all">
+                    </p:commandButton>
+                </div>
+                <p:commandButton value="Currículo" id="btnCurriculo" action="#{perfilController.generateCurritulo()}" process="@all" partialSubmit="false" immediate="true" ajax="false"/>
+
             </h:form>
             <ui:include src="/perfil/modalPhotoCam.xhtml" />
         </ui:define>

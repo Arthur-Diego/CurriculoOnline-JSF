@@ -221,25 +221,19 @@ public class PerfilController extends EntityController<Perfil> implements Serial
     }
 
     public void addExperiencia() {
-        getListaExperiencia().add(new Experiencia());
-        current.getConhecimento().setExperiencia(listaExperiencia);
+        current.getConhecimento().getExperiencia().add(new Experiencia());
     }
 
     public void addFormacao() {
-        getListaFormacao().add(new Formacao());
-         current.getConhecimento().setFormacao(listaFormacao);
+         current.getConhecimento().getFormacao().add(new Formacao());
     }
 
     public void addQualificacao() {
-
-        getListaQualificacao().add(new Qualificacao());
-        current.getConhecimento().setQualificacao(listaQualificacao);
+        current.getConhecimento().getQualificacao().add(new Qualificacao());
     }
 
     public void addInformacaoAdicional() {
-
-        listaInformacaoAdicional.add(new InformacaoAdicional());
-        current.getConhecimento().setQualificacao(listaQualificacao);
+        current.getConhecimento().getInformacao().add(new InformacaoAdicional());
     }
 
     public String salvarPerfil() {
@@ -263,10 +257,15 @@ public class PerfilController extends EntityController<Perfil> implements Serial
         return JsfUtil.PERFILMAIN;
     } 
 
-    public void generateCurritulo() {
-        current = perfilDao.findPerfilByLogin(login.usuario().getUsuario());
-        curriculoUm.generateCurriculoUm(current);
-    }
+//    public void generateCurritulo() {
+//        current = perfilDao.findPerfilByLogin(login.usuario().getUsuario());
+//        curriculoUm.generateCurriculoUm(current);
+//    }
+    
+//    public Perfil getPerfilAtualizado(){
+//         current = perfilDao.findPerfilByLogin(login.usuario().getUsuario());
+//         return current;
+//    }
 
     /**
      * *********************************** MÉTODOS CONTROLLER

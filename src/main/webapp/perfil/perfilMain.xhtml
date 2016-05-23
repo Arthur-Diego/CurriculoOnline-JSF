@@ -26,14 +26,11 @@ and open the template in the editor.
                     <div class="row">
                         <div class="col-sm-3 well">
                             <div class="well">
-                                <p><a href="#">Perfil</a></p>
-                                <p:graphicImage value="#{fotoPerfilController.image}" styleClass="img-circle"  height="110" width="110" />
+                                <p:graphicImage value="#{perfilMainController.image}" cache="false" styleClass="img-circle"  height="130" width="130" />
 
                             </div>
-                            <h:commandLink value="Alterar foto"></h:commandLink>
-                            <p><h:link outcome="perfil">Editar perfil</h:link>></p>
-                            <p><a href="#">Currículo</a></p>
-                            <p><a href="#">Desativar conta</a></p>
+                            <p><h:link outcome="perfil"><span class="glyphicon glyphicon-edit"></span>  Editar perfil</h:link></p>
+                            <p><h:commandLink action="#{perfilMainController.generateCurritulo()}"><span class="glyphicon glyphicon-duplicate"></span>  Currículo</h:commandLink></p>
                         </div>
                         <div class="col-sm-7">
 
@@ -78,6 +75,7 @@ and open the template in the editor.
 
                                                 <br/>
                                                 <h:outputText value="#{experiencia.descExperiencia}"/>
+                                                <br/>
                                             </ui:repeat>  
                                         </p>
                                     </div>

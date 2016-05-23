@@ -64,7 +64,7 @@
                         <ul class="nav navbar-nav navbar-right">
 
                             <li><a href="#"><span class="glyphicon glyphicon-user" style="margin-right: 5px;"></span>    Olá #{loginController.nomeUsuario} !</a></li>
-                            <h:panelGroup rendered="#{fotoPerfilController.image != null}"><li><p:graphicImage  cache="false" value="#{fotoPerfilController.image}" styleClass="img-circle"  height="35" width="35" style="margin-top: 6px;"/></li></h:panelGroup>
+                            <h:panelGroup rendered="#{perfilMainController.image != null}"><li><p:graphicImage  cache="false" value="#{perfilMainController.image}" styleClass="img-circle"  height="35" width="35" style="margin-top: 6px;"/></li></h:panelGroup>
                             <li><h:commandLink action="#{loginController.logout()}"><span class="glyphicon glyphicon-off"></span> Sair</h:commandLink></li>
                         </ul>
                     </div>

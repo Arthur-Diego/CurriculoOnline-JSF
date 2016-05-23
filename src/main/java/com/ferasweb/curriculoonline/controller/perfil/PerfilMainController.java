@@ -8,6 +8,7 @@ package com.ferasweb.curriculoonline.controller.perfil;
 import com.ferasweb.curriculoonline.controller.commons.EntityController;
 import com.ferasweb.curriculoonline.controller.commons.EntityPagination;
 import com.ferasweb.curriculoonline.controller.login.LoginController;
+import com.ferasweb.curriculoonline.controller.template.ReportUm;
 import com.ferasweb.curriculoonline.model.dao.PerfilDAO;
 import com.ferasweb.curriculoonline.model.entity.Perfil;
 import java.io.ByteArrayInputStream;
@@ -29,14 +30,17 @@ import org.primefaces.model.StreamedContent;
  */
 @Named
 @SessionScoped
-public class PerfilMainController extends EntityController<Perfil> implements Serializable{
+public class PerfilMainController extends EntityController<Perfil> implements Serializable {
 
     private Perfil current;
     @Inject
     private PerfilDAO perfilDao;
-
+    @Inject
+    private ReportUm curriculoUm;
     @Inject
     private LoginController login;
+    private boolean verifyIfExistImage;
+    private StreamedContent image;
 
     public void redirectIfPerfilIsNull() {
         login.getNomeUsuario();
@@ -52,11 +56,30 @@ public class PerfilMainController extends EntityController<Perfil> implements Se
                 System.out.println("erro");
             }
         } else {
-            
+
             System.out.println("ELSE");
         }
     }
- 
+
+    public StreamedContent getImage() throws IOException {
+        if (current.getPerfilCod() != null) {
+            image = new DefaultStreamedContent(new ByteArrayInputStream(current.getFoto()));
+        }
+        return image;
+    }
+
+    public boolean isVerifyIfExistImage() {
+        return verifyIfExistImage;
+    }
+
+    public void setVerifyIfExistImage(boolean verifyIfExistImage) {
+        this.verifyIfExistImage = verifyIfExistImage;
+    }
+
+    public void generateCurritulo() {
+        curriculoUm.generateCurriculoUm(current);
+    }
+
     @Override
     protected void setEntity(Perfil t) {
         this.current = t;
