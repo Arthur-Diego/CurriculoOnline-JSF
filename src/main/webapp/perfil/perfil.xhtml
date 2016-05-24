@@ -137,6 +137,10 @@ and open the template in the editor.
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <h:commandLink rendered="#{perfilController.current.conhecimento.formacao.size() == 0}" id="btnAddFormacao" styleClass="btn btn-default">
+                                        <span class="glyphicon glyphicon-plus"></span> 
+                                        <f:ajax execute=":frmPerfil:panelFormacao" render=":frmPerfil:panelFormacao" listener="#{perfilController.addFormacao()}"/>
+                                    </h:commandLink>
                                     <ui:repeat id="listFormacao" value="#{perfilController.current.conhecimento.formacao}" var="formacao">
                                         <tr>
                                             <td><h:selectOneMenu styleClass="form-control" value="#{formacao.tipoFormacao}">
@@ -150,6 +154,10 @@ and open the template in the editor.
                                                 <h:commandLink id="btnAddFormacao" styleClass="btn btn-default">
                                                     <span class="glyphicon glyphicon-plus"></span> 
                                                     <f:ajax execute=":frmPerfil:panelFormacao" render=":frmPerfil:panelFormacao" listener="#{perfilController.addFormacao()}"/>
+                                                </h:commandLink>
+                                                <h:commandLink id="btnDelFormacao" styleClass="btn btn-default">
+                                                    <span class="glyphicon glyphicon-trash"></span> 
+                                                    <f:ajax execute=":frmPerfil:panelFormacao" render=":frmPerfil:panelFormacao" listener="#{perfilController.deleteFormacao(formacao)}"/>
                                                 </h:commandLink>
                                             </td>
                                         </tr>
@@ -171,6 +179,10 @@ and open the template in the editor.
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <h:commandLink rendered="#{perfilController.current.conhecimento.qualificacao.size() == 0}" id="btnAddQualificacao" styleClass="btn btn-default">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                        <f:ajax execute=":frmPerfil:panelQualificacao" render=":frmPerfil:panelQualificacao" listener="#{perfilController.addQualificacao()}"/>
+                                    </h:commandLink>
                                     <ui:repeat id="listQualificacao" value="#{perfilController.current.conhecimento.qualificacao}" var="qualificacao">
                                         <tr>
                                             <td><p:inputText style="width: 100%" value="#{qualificacao.cursoPalestras}"/></td>
@@ -179,9 +191,13 @@ and open the template in the editor.
                                                 <p:inputText style="width: 100%" value="#{qualificacao.anoTerminio}"/>
                                             </td>
                                             <td>
-                                                <h:commandLink id="btnAddFormacao" styleClass="btn btn-default">
+                                                <h:commandLink id="btnAddQualificacao" styleClass="btn btn-default">
                                                     <span class="glyphicon glyphicon-plus"></span>
                                                     <f:ajax execute=":frmPerfil:panelQualificacao" render=":frmPerfil:panelQualificacao" listener="#{perfilController.addQualificacao()}"/>
+                                                </h:commandLink>
+                                                <h:commandLink id="btnDelQualificacao" styleClass="btn btn-default">
+                                                    <span class="glyphicon glyphicon-trash"></span> 
+                                                    <f:ajax execute=":frmPerfil:panelQualificacao" render=":frmPerfil:panelQualificacao" listener="#{perfilController.deleteQualificacao(qualificacao)}"/>
                                                 </h:commandLink>
                                             </td>
                                         </tr>
@@ -204,6 +220,10 @@ and open the template in the editor.
 
                                     </tr>
                                 </thead>
+                                <h:commandLink rendered="#{perfilController.current.conhecimento.experiencia.size() == 0}" id="btnAddExperiencia" styleClass="btn btn-default">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                    <f:ajax execute=":frmPerfil:panelExperiencia" render=":frmPerfil:panelExperiencia" listener="#{perfilController.addExperiencia()}"/>
+                                </h:commandLink>
                                 <tbody style="width: 100%">
                                     <ui:repeat value="#{perfilController.current.conhecimento.experiencia}" var="experiencia">
                                         <tr style="width: 100%">
@@ -211,9 +231,13 @@ and open the template in the editor.
                                             <td><p:calendar value="#{experiencia.dataInicio}" pattern="MM/yyyy" style="width: 100%"/></td>
                                             <td><p:calendar value="#{experiencia.dataFinal}" pattern="MM/yyyy" style="width: 100%"/></td>
                                             <td>
-                                                <h:commandLink id="btnAddFormacao" styleClass="btn btn-default">
+                                                <h:commandLink id="btnAddExperiencia" styleClass="btn btn-default">
                                                     <span class="glyphicon glyphicon-plus"></span>
                                                     <f:ajax execute=":frmPerfil:panelExperiencia" render=":frmPerfil:panelExperiencia" listener="#{perfilController.addExperiencia()}"/>
+                                                </h:commandLink>
+                                                <h:commandLink id="btnDelExperiencia" styleClass="btn btn-default">
+                                                    <span class="glyphicon glyphicon-trash"></span> 
+                                                    <f:ajax execute=":frmPerfil:panelExperiencia" render=":frmPerfil:panelExperiencia" listener="#{perfilController.deleteExperiencia(experiencia)}"/>
                                                 </h:commandLink>
                                             </td>
                                         </tr>
@@ -245,13 +269,21 @@ and open the template in the editor.
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <h:commandLink rendered="#{perfilController.current.conhecimento.informacao.size()==0}" id="btnAddInformacao" styleClass="btn btn-default">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                        <f:ajax execute=":frmPerfil:panelInformacao" render=":frmPerfil:panelInformacao" listener="#{perfilController.addInformacaoAdicional()}"/>
+                                    </h:commandLink>
                                     <ui:repeat value="#{perfilController.current.conhecimento.informacao}" var="infoAdicional">
                                         <tr>
                                             <td><p:inputText style="width: 100%" value="#{infoAdicional.informacao}"/></td>
                                             <td>
-                                                <h:commandLink id="btnAddFormacao" styleClass="btn btn-default">
+                                                <h:commandLink id="btnAddInformacao" styleClass="btn btn-default">
                                                     <span class="glyphicon glyphicon-plus"></span>
                                                     <f:ajax execute=":frmPerfil:panelInformacao" render=":frmPerfil:panelInformacao" listener="#{perfilController.addInformacaoAdicional()}"/>
+                                                </h:commandLink>
+                                                <h:commandLink id="btnDelInformacao" styleClass="btn btn-default">
+                                                    <span class="glyphicon glyphicon-trash"></span> 
+                                                    <f:ajax execute=":frmPerfil:panelInformacao" render=":frmPerfil:panelInformacao" listener="#{perfilController.deleteInformacaoAdicional(infoAdicional)}"/>
                                                 </h:commandLink>
                                             </td>
                                         </tr>
@@ -261,14 +293,9 @@ and open the template in the editor.
                         </div>
                     </h:panelGroup>
                 </p:panel> 
-                <div class="col-md-12">
-                    <p:commandButton styleClass="form-control btn btn-success" value="#{msg.salvar}" id="btnSalvar" action="#{perfilController.salvarPerfil()}" process="@all" partialSubmit="false"/>
+                <div class="col-md-12" style="margin-top: 15px;">
+                    <p:commandButton styleClass="form-control btn btn-success" value="#{msg.salvar}" id="btnSalvar" action="#{perfilController.editOrSave()}" process="@all" partialSubmit="false"/>
                 </div>
-                <div class="col-md-8">
-                    <p:commandButton value="#{msg.salvar}" id="btnEditar" action="#{perfilController.editarPerfil()}" process="@all">
-                    </p:commandButton>
-                </div>
-                <p:commandButton value="Currículo" id="btnCurriculo" action="#{perfilController.generateCurritulo()}" process="@all" partialSubmit="false" immediate="true" ajax="false"/>
 
             </h:form>
             <ui:include src="/perfil/modalPhotoCam.xhtml" />

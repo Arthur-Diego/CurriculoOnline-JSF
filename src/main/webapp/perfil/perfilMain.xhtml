@@ -31,6 +31,7 @@ and open the template in the editor.
                             </div>
                             <p><h:link outcome="perfil"><span class="glyphicon glyphicon-edit"></span>  Editar perfil</h:link></p>
                             <p><h:commandLink action="#{perfilMainController.generateCurritulo()}"><span class="glyphicon glyphicon-duplicate"></span>  Currículo</h:commandLink></p>
+                            <span class="glyphicon glyphicon-picture" style="color: #337ab7; margin-right: 5px;"></span><span style="color: #337ab7; margin-right: 5px;" >Foto</span>  <p:selectBooleanCheckbox value="#{perfilMainController.current.curriculoComOuSemFoto}" />
                         </div>
                         <div class="col-sm-7">
 
@@ -109,19 +110,7 @@ and open the template in the editor.
                             </div>     
                         </div>
                         <div class="col-sm-2 well">
-                            <div class="thumbnail">
-                                <p>Upcoming Events:</p>
-                                <img src="paris.jpg" alt="Paris" width="400" height="300"/>
-                                <p><strong>Paris</strong></p>
-                                <p>Fri. 27 November 2015</p>
-                                <button class="btn btn-primary">Info</button>
-                            </div>      
-                            <div class="well">
-                                <p>ADS</p>
-                            </div>
-                            <div class="well">
-                                <p>ADS</p>
-                            </div>
+                                <p><p:clock pattern="HH:mm:ss" mode="server" /></p>
                         </div>
                     </div>
                 </div>

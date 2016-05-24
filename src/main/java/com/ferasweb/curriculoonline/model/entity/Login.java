@@ -45,7 +45,7 @@ public class Login implements EntityInterface<Login> {
     @Column(name = "Login_Nome")
     private String loginNome;
 
-    @Column(name = "Login_User", nullable = false)
+    @Column(name = "Login_User", nullable = false, unique = true)
     private String login;
 
     @Column(name = "Login_Senha", nullable = false)
@@ -55,7 +55,7 @@ public class Login implements EntityInterface<Login> {
     @Column(name = "Login_Data_Reg")
     private Date dataRegistro;
 
-    @Column(name = "Login_Email", length = 100, nullable = false)
+    @Column(name = "Login_Email", length = 100, nullable = false, unique = true)
     private String email;
 
     @ManyToMany

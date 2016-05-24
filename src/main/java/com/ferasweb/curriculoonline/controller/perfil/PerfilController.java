@@ -225,7 +225,7 @@ public class PerfilController extends EntityController<Perfil> implements Serial
     }
 
     public void addFormacao() {
-         current.getConhecimento().getFormacao().add(new Formacao());
+        current.getConhecimento().getFormacao().add(new Formacao());
     }
 
     public void addQualificacao() {
@@ -235,8 +235,24 @@ public class PerfilController extends EntityController<Perfil> implements Serial
     public void addInformacaoAdicional() {
         current.getConhecimento().getInformacao().add(new InformacaoAdicional());
     }
+    
+    public void deleteExperiencia(Experiencia experiencia){
+        current.getConhecimento().getExperiencia().remove(experiencia);
+    }
+    
+    public void deleteFormacao(Formacao formacao){
+        current.getConhecimento().getFormacao().remove(formacao);
+    }
+    
+    public void deleteQualificacao(Qualificacao qualificacao){
+        current.getConhecimento().getQualificacao().remove(qualificacao);
+    }
+    
+    public void deleteInformacaoAdicional(InformacaoAdicional informacao){
+        current.getConhecimento().getInformacao().remove(informacao);
+    }
 
-    public String salvarPerfil() {
+    public void salvarPerfil() {
         try {
             fillConhecimento();
             current.setConhecimento(getConhecimento());
@@ -245,28 +261,34 @@ public class PerfilController extends EntityController<Perfil> implements Serial
         } catch (EntityException ex) {
             Logger.getLogger(PerfilController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return JsfUtil.MANTEM;
     }
-    
-    public String editarPerfil(){
+
+    public void editarPerfil() {
         try {
             perfilDao.update(current);
         } catch (EntityException ex) {
             Logger.getLogger(PerfilController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return JsfUtil.PERFILMAIN;
-    } 
+    }
+
+    public String editOrSave() {
+        if (current.getPerfilCod() == null) {
+            salvarPerfil();
+            return JsfUtil.PERFILMAIN;
+        } else {
+            editarPerfil();
+            return JsfUtil.PERFILMAIN;
+        }
+    }
 
 //    public void generateCurritulo() {
 //        current = perfilDao.findPerfilByLogin(login.usuario().getUsuario());
 //        curriculoUm.generateCurriculoUm(current);
 //    }
-    
 //    public Perfil getPerfilAtualizado(){
 //         current = perfilDao.findPerfilByLogin(login.usuario().getUsuario());
 //         return current;
 //    }
-
     /**
      * *********************************** MÉTODOS CONTROLLER
      * ***********************************

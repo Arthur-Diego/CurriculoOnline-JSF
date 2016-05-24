@@ -30,16 +30,12 @@ where e.conhecimento_cod = $P{Conhecimento_Cod}]]>
 				<reportElement x="0" y="31" width="555" height="1" forecolor="#CCCCCC" uuid="f1bd6024-1c00-4a50-be9a-9d89829b4dd8"/>
 			</line>
 			<staticText>
-				<reportElement x="20" y="11" width="99" height="20" uuid="e24b504b-6498-4beb-a4d8-a0a593db0846"/>
+				<reportElement x="0" y="11" width="99" height="20" uuid="e24b504b-6498-4beb-a4d8-a0a593db0846"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[EXPERIÊNCIA]]></text>
 			</staticText>
-			<image>
-				<reportElement x="2" y="16" width="18" height="15" uuid="e218c272-9687-455d-9c8f-a45590719b7e"/>
-				<imageExpression><![CDATA[$P{IMAGE_DIR}+"certo.jpg"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<detail>

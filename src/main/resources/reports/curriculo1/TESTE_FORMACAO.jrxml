@@ -24,16 +24,15 @@ where f.conhecimento_cod = $P{Conhecimento_Cod}]]>
 	<title>
 		<band height="31" splitType="Stretch">
 			<staticText>
-				<reportElement x="18" y="10" width="92" height="20" uuid="65eb5658-81b8-440d-a255-c88d90aa9b40"/>
+				<reportElement x="0" y="10" width="92" height="20" uuid="65eb5658-81b8-440d-a255-c88d90aa9b40"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[FORMAÇÃO]]></text>
 			</staticText>
-			<image>
-				<reportElement x="2" y="15" width="18" height="15" uuid="f473969c-454d-4bed-9a4c-a999cc122b35"/>
-				<imageExpression><![CDATA[$P{IMAGE_DIR}+"certo.jpg"]]></imageExpression>
-			</image>
+			<line>
+				<reportElement x="0" y="30" width="555" height="1" forecolor="#CCCCCC" uuid="78c02f04-1a07-4b40-a00b-cb627d758c64"/>
+			</line>
 		</band>
 	</title>
 	<detail>
@@ -49,9 +48,6 @@ where f.conhecimento_cod = $P{Conhecimento_Cod}]]>
 					<pen lineWidth="0.0"/>
 				</graphicElement>
 			</rectangle>
-			<line>
-				<reportElement x="0" y="0" width="555" height="1" forecolor="#CCCCCC" uuid="78c02f04-1a07-4b40-a00b-cb627d758c64"/>
-			</line>
 		</band>
 	</detail>
 </jasperReport>

@@ -8,8 +8,6 @@ package com.ferasweb.curriculoonline.model.entity;
 import com.ferasweb.curriculoonline.model.commons.EntityInterface;
 import com.ferasweb.curriculoonline.model.enumerated.EnumEstadoCivil;
 import com.ferasweb.curriculoonline.model.enumerated.EnumTipoHabilitacao;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
 import javax.persistence.CascadeType;
@@ -26,8 +24,7 @@ import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
+import javax.persistence.Transient;
 
 /**
  *
@@ -69,7 +66,7 @@ public class Perfil implements EntityInterface<Perfil> {
     @Column(name = "Perfil_Foto", columnDefinition = "BLOB")
     private byte[] foto;
 
-    @Column(name = "Perfil_Email")
+    @Column(name = "Perfil_Email", unique = true)
     private String email;
 
     @Enumerated(EnumType.STRING)
@@ -82,9 +79,13 @@ public class Perfil implements EntityInterface<Perfil> {
     @OneToOne(targetEntity = Login.class)
     @JoinColumn(name = "Login_Cod", nullable = false, unique = true)
     private Login login;
+    
+    @Transient
+    private boolean curriculoComOuSemFoto;
 
     public Perfil(Conhecimento conhecimento) {
         this.conhecimento = conhecimento;
+        endereco = new Endereco();
     }
     
 
@@ -178,6 +179,14 @@ public class Perfil implements EntityInterface<Perfil> {
 
     public void setLogin(Login login) {
         this.login = login;
+    }
+
+    public boolean isCurriculoComOuSemFoto() {
+        return curriculoComOuSemFoto;
+    }
+
+    public void setCurriculoComOuSemFoto(boolean curriculoComOuSemFoto) {
+        this.curriculoComOuSemFoto = curriculoComOuSemFoto;
     }
 
     @Override
