@@ -137,7 +137,7 @@ and open the template in the editor.
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <h:commandLink rendered="#{perfilController.current.conhecimento.formacao.size() == 0}" id="btnAddFormacao" styleClass="btn btn-default">
+                                    <h:commandLink  rendered="#{perfilController.current.conhecimento.formacao.size() == 0}" id="btnAddFormacao" styleClass="btn btn-default">
                                         <span class="glyphicon glyphicon-plus"></span> 
                                         <f:ajax execute=":frmPerfil:panelFormacao" render=":frmPerfil:panelFormacao" listener="#{perfilController.addFormacao()}"/>
                                     </h:commandLink>
