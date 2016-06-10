@@ -61,7 +61,6 @@
                             <li><h:link outcome="perfilMain">Perfil</h:link></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-
                             <li><a href="#"><span class="glyphicon glyphicon-user" style="margin-right: 5px;"></span>    Olá #{loginController.nomeUsuario} !</a></li>
                             <h:panelGroup rendered="#{perfilMainController.image != null}"><li><p:graphicImage  cache="false" value="#{perfilMainController.image}" styleClass="img-circle"  height="35" width="35" style="margin-top: 6px;"/></li></h:panelGroup>
                             <li><h:commandLink action="#{loginController.logout()}"><span class="glyphicon glyphicon-off"></span> Sair</h:commandLink></li>
@@ -72,9 +71,7 @@
         </h:form>
         <ui:insert name="content_page_inicial">
             <div class="container">    
-
                 <div class="row">
-
                     <div class="col-sm-4">
                         <div class="panel panel-primary">
                             <div class="panel-heading">BLACK FRIDAY DEAL</div>
@@ -97,7 +94,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </ui:insert>
         <div class="container">  
@@ -124,8 +120,6 @@
                             <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
                         </div>
                     </div>
-
-
                 </div>
             </ui:insert>
 
@@ -146,7 +140,6 @@
         </ui:insert>
         <footer class="container-fluid text-center">
             <p>Currículo Online todos os direitos reservados</p>  
-            
         </footer>
 
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>

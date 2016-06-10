@@ -41,7 +41,7 @@ public class PerfilMainController extends EntityController<Perfil> implements Se
     private LoginController login;
     private boolean verifyIfExistImage;
     private StreamedContent image;
-    
+
     public void redirectIfPerfilIsNull() {
         login.getNomeUsuario();
         current = perfilDao.findPerfilByLogin(login.usuario().getUsuario());
@@ -63,7 +63,9 @@ public class PerfilMainController extends EntityController<Perfil> implements Se
 
     public StreamedContent getImage() throws IOException {
         if (current.getPerfilCod() != null) {
-            image = new DefaultStreamedContent(new ByteArrayInputStream(current.getFoto()));
+            if (current.getFoto() != null) {
+                image = new DefaultStreamedContent(new ByteArrayInputStream(current.getFoto()));
+            }
         }
         return image;
     }

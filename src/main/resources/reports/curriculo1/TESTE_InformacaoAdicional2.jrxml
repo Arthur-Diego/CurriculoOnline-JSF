@@ -36,16 +36,12 @@ where i.conhecimento_cod = $P{Conhecimento_Cod}]]>
 				<reportElement x="0" y="30" width="555" height="1" forecolor="#CCCCCC" uuid="9183dfc9-72de-4e99-bac8-7cd70e8b605a"/>
 			</line>
 			<staticText>
-				<reportElement x="20" y="11" width="201" height="20" uuid="c7f914ef-52ba-4247-84e2-715324567056"/>
+				<reportElement x="0" y="11" width="201" height="20" uuid="c7f914ef-52ba-4247-84e2-715324567056"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[INFORMAÇÕES ADICIONAIS]]></text>
 			</staticText>
-			<image>
-				<reportElement x="2" y="15" width="18" height="15" uuid="5361ca72-a87f-4b86-a155-0b5707ac41d1"/>
-				<imageExpression><![CDATA[$P{IMAGE_DIR}+"certo.jpg"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<detail>
